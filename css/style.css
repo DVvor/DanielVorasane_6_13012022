@@ -1,5 +1,7 @@
 @import url("photographer.css");
 
+
+
 body {
     font-family: "DM Sans", sans-serif;
     margin: 0;
@@ -21,7 +23,11 @@ h1 {
 
 .logo {
     height: 50px;
-    margin-left: 100px;
+    /* margin-left: 100px; */
+}
+
+a {
+    margin-left: 100px /*margin du logo initial*/
 }
 
 .photographer_section {
@@ -37,14 +43,52 @@ h1 {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    gap: 10px;
+    position: relative;
 }
 
 .photographer_section article h2 {
     color: #D3573C;
     font-size: 36px;
+    margin-bottom: 0px;
 }
 
 .photographer_section article img {
     height: 200px;
     width: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.photographer_section article h3 {
+    color: #901C1C;
+    font-size: 13px;
+    margin-top: 0px;
+    margin-bottom: 0px;;
+}
+
+.photographer_section article  {
+    color: #901C1C;
+    font-size: 13px;
+}
+
+.photographer_section .slogan  {
+    margin: 0px;
+    color: #000000;
+}
+
+.photographer_section .tjm  {
+    font-size: 9px;
+    margin: 0px;
+    color: #757575;
+}
+
+.photographer_section article .link {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    margin: 0px;
+    z-index: 1;
 }
