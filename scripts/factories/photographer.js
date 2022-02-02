@@ -1,5 +1,5 @@
 function photographerFactory(data) {
-    const { name, portrait, city, country, tagline, price } = data;
+    const { name, id, portrait, city, country, tagline, price } = data;
     const picture = `assets/photographers/${portrait}`;
 
 
@@ -23,7 +23,7 @@ function photographerFactory(data) {
         tjm.textContent = `${price}€/jour`;
 
         const link = document.createElement ('a');
-        link.href = "photographer.html?='${name}'";
+        link.href = `photographer.html?id=${id}&name=toto`;
         link.title = "photographer page";
         link.classList.add("link");
         

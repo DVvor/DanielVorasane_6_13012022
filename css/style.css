@@ -18,7 +18,12 @@ header {
 
 h1 {
     color: #901C1C;
-    margin-right: 100px;
+    margin-top: 0px;
+    /* margin-right: 100px; */
+}
+
+p {
+    margin: 0px;
 }
 
 .logo {

@@ -2,51 +2,28 @@
         // Penser à remplacer par les données récupérées dans le json
 
         const dataPhotographers = await fetch("data/photographers.json")
-        .then(function(result) {
-        if (result.ok) {
-            return result.json();
-            }
-        })
-// .Json() permet de transformer le resultat de fetch en object Javascript
-        // .then (function(value) {
-        //     console.log(value);
-        // });
-// permet d'afficher le résultat
+            .then(function(result) {
+                if (result.ok) {
+                    return result.json();
+                }
+            })
+    // .Json() permet de transformer le resultat de fetch en object Javascript
+            // .then (function(value) {
+            //     console.log(value);
+            // });
+    // permet d'afficher le résultat
 
-        .catch(function(error) {  
-            console.log(error);  
-        });
-         
-        // const photographers = [
-        //     {
-        //         "name": "Ma data test",
-        //         "id": 1,
-        //         "city": "Paris",
-        //         "country": "France",
-        //         "tagline": "Ceci est ma data test",
-        //         "price": 400,
-        //         "portrait": "account.png"
-
-               
-
-        //     },
-        //     {
-        //         "name": "Autre data test",
-        //         "id": 2,
-        //         "city": "Londres",
-        //         "country": "UK",
-        //         "tagline": "Ceci est ma data test 2",
-        //         "price": 500,
-        //         "portrait": "account.png"
-        //     }
-        // ]
+            .catch(function(error) {  
+                console.log(error);  
+            });
 
 // https://openclassrooms.com/fr/courses/5543061-ecrivez-du-javascript-pour-le-web/5577591-recuperez-des-donnees-dun-service-web
         
         // et bien retourner le tableau photographers seulement une fois
         // ...afficher tous les éléments du tableau
         return ({
-            photographers: [...dataPhotographers.photographers]})
+            photographers: [...dataPhotographers.photographers]
+        })
     }
 
     async function displayData(photographers) {
