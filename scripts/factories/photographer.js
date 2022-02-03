@@ -23,7 +23,7 @@ function photographerFactory(data) {
         tjm.textContent = `${price}€/jour`;
 
         const link = document.createElement ('a');
-        link.href = `photographer.html?id=${id}&name=toto`;
+        link.href = `photographer.html?id=${id}`;
         link.title = "photographer page";
         link.classList.add("link");
         

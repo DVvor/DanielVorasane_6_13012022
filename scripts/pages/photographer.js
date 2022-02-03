@@ -30,13 +30,14 @@ async function getPhotographers() {
 async function photographerfound() {
     const photographers = await getPhotographers()
     const photographerId = getParameterId();
-    const findPhotographerByID = photographers.find(photographer => photographer.id == photographerId);
-    
-    // console.log(findPhotographerByID);
-    return findPhotographerByID;
+    const findPhotographerById = photographers.find(photographer => photographer.id == photographerId);
+    // const mediaPhotographerById = media.find(media => media.id == photographerId);
+    // console.log(findPhotographerById);
+
+    // console.log(mediaPhotographerById)
+    return findPhotographerById;
 }  
 
-photographerfound();
 
 async function displayData() {
 
@@ -75,3 +76,95 @@ async function displayData() {
 
 }
 displayData();
+
+async function getMedia() {
+    const mediaPhotographers = await fetch("data/photographers.json")
+        .then(function(result) {
+            if (result.ok) {
+                return result.json();
+                }
+            })
+        // .then(function(value) {
+        //     console.log(value);
+        // })
+        .catch(function(error) {  
+            console.log(error);  
+        });
+
+    return (mediaPhotographers.media)
+} 
+
+async function mediasPhotographerFound() {
+    const medias = await getMedia()
+    const photographerId = getParameterId();
+    const mediasPhotographerById = medias.filter(medias => medias.photographerId == photographerId);
+
+
+    return mediasPhotographerById;
+    
+}  
+
+async function mediadisplay() {
+    const mediasPhotographer = await mediasPhotographerFound();
+    const dataPhotographer = await photographerfound();
+    const {name} = dataPhotographer;
+    const main = document.querySelector("main");
+    
+    const mediasection = document.createElement("div");
+    mediasection.classList.add('medias-section');
+
+    main.appendChild(mediasection);
+    
+    console.log(mediasPhotographer)
+
+    mediasPhotographer.forEach(media => {
+
+    const { id, photographerId, title, image,video, likes, date, price } = media;
+    const picture = `assets/SamplePhotos/${name}/${image || video}`;
+        
+
+    const cardmedia = document.createElement("div");
+    cardmedia.classList.add('card-media');
+
+    if ('image' in media ) {
+        const img = document.createElement('img');
+        img.setAttribute("src", picture);
+        cardmedia.appendChild(img);
+    } else if( 'video' in media) {
+        const video = document.createElement('video');
+        video.setAttribute("controls", "controls");
+        video.setAttribute("src", picture);
+        cardmedia.appendChild(video);
+
+     }
+
+    const cardmediatitle = document.createElement('div');
+    cardmediatitle.classList.add('card-media-title');
+    
+    const h2 = document.createElement('h2');
+    h2.textContent = title;
+
+    const nbLikes = document.createElement('p');
+    nbLikes.classList.add('nblikes');
+    nbLikes.textContent = likes;
+
+
+    
+    cardmedia.appendChild(cardmediatitle);
+    cardmediatitle.appendChild(h2);
+    cardmediatitle.appendChild(nbLikes);
+
+    mediasection.appendChild(cardmedia);
+
+        });
+
+}
+
+mediadisplay();
+
+
+
+
+
+
+

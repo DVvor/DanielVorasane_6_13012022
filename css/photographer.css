@@ -2,6 +2,9 @@
     display: none;
 }
 
+html {
+    font-family: "DM Sans", sans-serif;
+}
 
 main {
     position: relative;
@@ -136,9 +139,11 @@ form input {
     height: 204px;
     width: 100%;
     border-radius: 5px;
+    font-family: "DM Sans", sans-serif;
+
 }
 
-.photographers-section {
+.medias-section {
     display: grid;
     grid-template-columns: 0fr 0fr 0fr;
     justify-content: space-between;
@@ -175,14 +180,33 @@ form input {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-h2 {
-    margin: 0px;
+    position: relative;
 }
 
-.fa-heart {
-    font-size: 24px;
+.card-media-title::after {
+    content: "\f004";
+    font-family: "font Awesome 5 free";
+    font-weight: 900;
+    position: absolute;
+    top: 1px;
+    bottom: 0;
+    left: 92%;
+    right: 0;
+    font-size: 20px;
+    /* opacity: 1; */
+    /* z-index: 1; */
+    color: #901C1C;
+  }
+
+h2 {
+    margin: 0px;
+    font-size: 20px;
 }
+
+.card-media-title p {
+    margin-right: 35px;
+}
+
 
 .select-bar {
     margin: 20px 100px;
@@ -192,7 +216,7 @@ h2 {
 
 }
 
-/* #selector {
+#selector .option {
     font-size: 20px;
     font-weight: bold;
     color: white;
@@ -203,4 +227,61 @@ h2 {
     background-color: #901C1C;
     border-radius: 5px;
     cursor: pointer;
-} */
+}
+
+.box-likes {
+    position: fixed;
+    top: 1210px;
+    right: 0px;
+    left: 1160px;
+    bottom: 0px;
+
+    width: 376px;
+    height: 89px;
+    border-radius: 5px;
+    background-color: #DB8876;
+    font-size: 24px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+}
+
+.total-likes {
+    display: flex;
+    justify-content: flex-end;
+    width: 50%;
+    padding-right: 65px;
+    box-sizing: border-box;
+}
+
+.total-likes::after {
+    content: "\f004";
+    font-family: "font Awesome 5 free";
+    font-weight: 900;
+    position: absolute;
+    top: 32px;
+    bottom: 0;
+    left: 130px;
+    right: 0;
+    font-size: 24px;
+    /* opacity: 1; */
+    /* z-index: 1; */
+    color: #000000;
+  }
+
+
+
+
+
+
+
+
+
+
+
+.tjm {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+}
