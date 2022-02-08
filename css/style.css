@@ -75,7 +75,15 @@ a {
 .photographer_section article  {
     color: #901C1C;
     font-size: 13px;
+    transition: transform .5s; /* Animation */
+
 }
+
+.photographer_section article:hover {
+    transform: scale(1.1);
+}
+
+
 
 .photographer_section .slogan  {
     margin: 0px;

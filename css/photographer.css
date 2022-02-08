@@ -55,7 +55,7 @@ main {
 
 
 
-.contact_button , #selector {
+.contact_button , #selector, .btnclose {
     font-size: 20px;
     font-weight: bold;
     color: white;
@@ -67,6 +67,19 @@ main {
     border-radius: 5px;
     cursor: pointer;
     order: 2;
+    transition: transform .2s; /* Animation */
+}
+
+.contact_button:nth-child(1):hover{
+    background-color: #DB8876;
+    color: #000000;
+    /* transform: scale(1.1); */
+}
+.contact_button:nth-child(n+2):hover,
+.btnclose:hover  {
+    /* color: #000000; */
+    /* transform: scale(1.1); */
+    border: 2px solid #FAFAFA;
 }
 
 #selector {
@@ -77,11 +90,11 @@ main {
     border-radius: 5px;
     background-color: #DB8876;
     width: 669px;
-    height: 900px;
+    height: 930px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    /* justify-content: space-between; */
     padding: 35px;
     margin: auto;
     position: absolute;
@@ -89,7 +102,34 @@ main {
     right: 0px;
     bottom: 0px;
     left: 0px;
+    animation-name: modalopen;
+    animation-duration: 0.8s;
 }
+
+.modal-message-sent {
+    color: #312E2E;
+    font-size: 32px;
+    border-radius: 5px;
+    background-color: #DB8876;
+    width: 669px;
+    height: 250px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 35px;
+    margin: auto;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    animation-name: modalopen;
+    animation-duration: 0.8s;
+
+}
+
 
 .modal header {
     justify-content: space-between;
@@ -133,6 +173,55 @@ form input {
     border: none;
     border-radius: 5px;
 }
+
+.formData[data-error]::after{
+    content: attr(data-error);
+    font-size: 15px;
+    color: #901C1C;
+    display: block;
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 7px;
+    text-align: end;
+    line-height: 0.3;
+    opacity: 0;
+    transition: 0.3s;
+  }
+
+/* .btn-submit-bl[data-error]::after{
+    content: attr(data-error);
+    background-color: #fe142f;
+    font-size: 0.8em;
+    color: #fff;
+    display: block;
+    margin-top: 7px;
+    text-align: left;
+    opacity: 0;
+    width: 112%;
+    margin-left: -40px;
+    padding: 15px;
+  } */
+  
+  
+  .formData[data-error-visible="true"]::after {
+    opacity: 1;
+  }
+  
+  .btn-submit-bl[data-error-visible="true"]::after {
+    opacity: 1;
+  }
+  .formData[data-error-visible="true"] .text-control {
+    /* border: 5px solid rgb(2, 88, 250); */
+    background-color: #901C1C;
+    color: white;
+  }
+  
+
+  
+
+
+
+
 
 #Yourmessage {
     font-size: 26px;
@@ -231,11 +320,8 @@ h2 {
 
 .box-likes {
     position: fixed;
-    top: 1210px;
-    right: 0px;
-    left: 1160px;
-    bottom: 0px;
-
+    top: 1200px;
+    right: 40px;
     width: 376px;
     height: 89px;
     border-radius: 5px;
@@ -270,18 +356,18 @@ h2 {
     color: #000000;
   }
 
-
-
-
-
-
-
-
-
-
-
 .tjm {
     display: flex;
     justify-content: center;
     width: 50%;
 }
+
+@keyframes modalopen {
+    from {
+      opacity: 0;
+      transform: translateY(-150px);
+    }
+    to {
+      opacity: 1;
+    }
+  }

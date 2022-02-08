@@ -38,42 +38,42 @@
 			<div class="modal">
 				<header>
           <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
+          <img src="assets/icons/close.svg" onclick="closeModal()" class="close" />
         </header>
 				<form
-					name="reserve"
-          action="index.html"
+					name="contactme"
+          action="photographer.html"
           method="get"
           onsubmit="return validate(event);"
             >
             <div
               class="formData"> 
-              <label for="First name">Prénom</label>
+              <label for="firstname">Prénom</label>
               <input
                 class="text-control"
                 type="text"
-                id="First name"
+                id="firstname"
                 name="first"
                 minlength="2"
               />
             </div>
             <div
               class="formData">
-              <label for="Last name">Nom</label>
+              <label for="lastname">Nom</label>
               <input
                 class="text-control"
                 type="text"
-                id="Last name"
+                id="lastname"
                 name="last"
               />
             </div>
             <div
               class="formData">
-              <label for="Email">E-mail</label>
+              <label for="email">E-mail</label>
               <input
                 class="text-control"
                 type="email"
-                id="Email"
+                id="email"
                 name="email"
               />
             </div>
@@ -86,10 +86,19 @@
               id="Yourmessage" 
               ></textarea>
             </div>
-          <button class="contact_button">Envoyer</button>
+          <button class="contact_button" onclick="validate(event)" type="submit">Envoyer</button>
 				</form>
 			</div>
 		</div>
+
+
+
+    <div class="modal-message-sent">
+      <p>Votre message a bien été envoyé. <br><br> Vous serez contacté dès que possible.<br><br></p>
+      <button type="submit" onclick="closeModalMessageSent()" class="btnclose">Fermer</button>
+    </div>
+
+
     <div class="box-likes">
       <div class="total-likes">
         297000

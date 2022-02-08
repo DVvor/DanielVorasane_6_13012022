@@ -31,10 +31,7 @@ async function photographerfound() {
     const photographers = await getPhotographers()
     const photographerId = getParameterId();
     const findPhotographerById = photographers.find(photographer => photographer.id == photographerId);
-    // const mediaPhotographerById = media.find(media => media.id == photographerId);
-    // console.log(findPhotographerById);
-
-    // console.log(mediaPhotographerById)
+    
     return findPhotographerById;
 }  
 
