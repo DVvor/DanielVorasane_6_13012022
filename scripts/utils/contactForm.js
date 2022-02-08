@@ -27,9 +27,10 @@ function closeModalMessageSent() {
 const form = document.querySelector("form")
 const formData = document.querySelectorAll(".formData");
 const close = document.querySelectorAll(".close");
-const firstnameInput = document.getElementById("firstname");
+const firstNameInput = document.getElementById("firstname");
 const lastNameInput = document.getElementById("lastname");
 const emailInput = document.getElementById("email");
+const messageInput = document.getElementById("Yourmessage");
 const modalMessageSent = document.querySelector(".modal-message-sent");
 const btnclose = document.querySelector("btnclose");
 
@@ -41,7 +42,7 @@ function firstnameInputIsValid() {
     // resetGlobalErrorMessage();
   
     let regex = /^[a-zA-ZÀ-ÿ\ ]+$/; // uniquement des lettres minuscules, majuscules avec ou sans accent. Avec un espace pour les noms composés
-    let value = firstnameInput.value.trim(); //.trim permet de retirer les blancs en début et fin de chaîne
+    let value = firstNameInput.value.trim(); //.trim permet de retirer les blancs en début et fin de chaîne
       if (value.length < 2 || regex.test(value) == false) {
         formData[0].setAttribute("data-error-visible","true"); // formData[0] cible le premier element formData de HTML
         formData[0].setAttribute("data-error","Le prénom doit contenir au moins 2 lettres (sans caractères spéciaux).");
@@ -91,7 +92,7 @@ function firstnameInputIsValid() {
     } else {
         formData[2].setAttribute("data-error-visible","false");
         formData[2].removeAttribute("data-error");
-      isEmailValid = true;
+        isEmailValid = true;
     }
   }
   formData[2].addEventListener("input", emailInputIsValid);
@@ -107,10 +108,15 @@ function firstnameInputIsValid() {
     if  (isFirstnameValid &&
         isLastnameValid &&
         isEmailValid)
-     {
-      form.reset();
-      closeModal();
-      modalMessageSent.style.display = "block";
-     }
+    {
+        console.log(`Prénom: ${firstNameInput.value}`);
+        console.log(`Nom: ${lastNameInput.value}`);
+        console.log(`E-mail: ${emailInput.value}`);
+        console.log(`Votre message: ${messageInput.value}`);
+
+        form.reset();
+        closeModal();
+        modalMessageSent.style.display = "block";
+    }
   } 
 

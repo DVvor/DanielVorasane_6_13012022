@@ -112,7 +112,6 @@ async function mediadisplay() {
 
     main.appendChild(mediasection);
     
-    console.log(mediasPhotographer)
 
     mediasPhotographer.forEach(media => {
 
@@ -158,7 +157,6 @@ async function mediadisplay() {
 }
 
 mediadisplay();
-
 
 
 
