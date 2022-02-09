@@ -7,6 +7,7 @@
 function mediaFactory(media, photographerName) {
     const {title, image,video, likes } = media;
     const picture = `assets/SamplePhotos/${photographerName}/${image || video}`;
+    let totalLike = likes;
 
     function getMediaCardDOM() {
         const cardmedia = document.createElement("div");
@@ -18,10 +19,17 @@ function mediaFactory(media, photographerName) {
         const h2 = document.createElement('h2');
         h2.textContent = title;
 
+        const counterlikes = document.createElement('div');
+        counterlikes.classList.add('counterlikes');
+
         const nbLikes = document.createElement('p');
         nbLikes.classList.add('nblikes');
         nbLikes.textContent = likes;
 
+        const heart = document.createElement('i');
+        heart.classList.add('fas','fa-heart');
+
+// Choose type of media if its image or video
         if ('image' in media ) {
             const img = document.createElement('img');
             img.setAttribute("src", picture);
@@ -34,10 +42,28 @@ function mediaFactory(media, photographerName) {
         }
         
 
+
+// add like when click on icon
+// counter likes on each media   
+
+        
+        function addLikeMore(){
+            totalLike += 1;
+            console.log(totalLike);
+
+            nbLikes.textContent = totalLike;
+
+        } 
+        heart.addEventListener("click", addLikeMore);
+
         cardmedia.appendChild(cardmediatitle);
         cardmediatitle.appendChild(h2);
-        cardmediatitle.appendChild(nbLikes);
+        cardmediatitle.appendChild(counterlikes);
+        counterlikes.appendChild(nbLikes);
+        counterlikes.appendChild(heart);
+
         
+
         return (cardmedia);
     }
 

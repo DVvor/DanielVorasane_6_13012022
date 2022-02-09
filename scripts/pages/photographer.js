@@ -7,7 +7,7 @@ function getParameterId() {
 
        return (paramsId);
 } 
-// getParameterId();
+
 
 // Find datas of photographer in object
 async function getPhotographers() {
@@ -26,6 +26,7 @@ async function getPhotographers() {
 
     return (dataPhotographers.photographers)
 } 
+
 
 async function photographerfound() {
     const photographers = await getPhotographers()
@@ -59,9 +60,7 @@ async function mediasPhotographerFound() {
     const photographerId = getParameterId();
     const mediasPhotographerById = medias.filter(medias => medias.photographerId == photographerId);
 
-
     return mediasPhotographerById;
-    
 }  
 
 
@@ -78,7 +77,7 @@ async function displayDataPhotographer() {
     
 
 }
-displayDataPhotographer();
+// displayDataPhotographer();
 
 
 // Display medias of photographer 
@@ -102,10 +101,33 @@ async function mediadisplay() {
 
 }
 
-mediadisplay();
+// mediadisplay();
+
+// add like when click on icon
+// counter likes on each media
+
+// function addlikes() {
+//     const nbLikes = document.querySelectorAll(".nblikes");
+    
+//     console.log(nbLikes);
+
+//     // nbLikes.addEventListener("click", addLikeMore);
+// }
+
+// addlikes()
 
 
+function init() {
+     displayDataPhotographer();
+     mediadisplay();
+    //  addlikes()
 
+    // window.addEventListener("DOMContentLoaded", (event) => {
+        // const nbLikes = document.querySelector(".medias-section");
+        
+        // console.log(nbLikes);
+    // })
+};
 
-
+init(); 
 
