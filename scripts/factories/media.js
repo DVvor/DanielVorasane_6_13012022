@@ -47,28 +47,24 @@ function mediaFactory(media, photographerName) {
 // counter likes on each media   
 
         
-        function addLikeMore(){
-            totalLike += 1;
-            console.log(totalLike);
+    function addLikeMore(){
+        totalLike += 1;
+        console.log(totalLike);
 
-            nbLikes.textContent = totalLike;
+        nbLikes.textContent = totalLike;
 
-        } 
-        heart.addEventListener("click", addLikeMore);
+    } 
+    heart.addEventListener("click", addLikeMore);
 
-        cardmedia.appendChild(cardmediatitle);
-        cardmediatitle.appendChild(h2);
-        cardmediatitle.appendChild(counterlikes);
-        counterlikes.appendChild(nbLikes);
-        counterlikes.appendChild(heart);
-
-        
+    cardmedia.appendChild(cardmediatitle);
+    cardmediatitle.appendChild(h2);
+    cardmediatitle.appendChild(counterlikes);
+    counterlikes.appendChild(nbLikes);
+    counterlikes.appendChild(heart);
 
         return (cardmedia);
     }
 
-
-    
     return { getMediaCardDOM }
 }
 

@@ -64,21 +64,25 @@ async function mediasPhotographerFound() {
 }  
 
 
-// Display datas of photographer in header
+// Display datas of photographer in header and boxlikes
 async function displayDataPhotographer() {
     const dataPhotographer = await photographerfound();
     const mainPagePhotographer = document.querySelector(".photograph-header")
+
 
     const photographerData = photographerFactory(dataPhotographer);
     const userCardDOM = photographerData.getDataPhotographer();
 
     mainPagePhotographer.appendChild(userCardDOM.article);
     mainPagePhotographer.appendChild(userCardDOM.img);
-    
+
+// display price(tjm) in box total like
+    const {price} = dataPhotographer;
+
+    const tjm = document.querySelector(".tjm");
+    tjm.textContent = `${price}€/jour`;    
 
 }
-// displayDataPhotographer();
-
 
 // Display medias of photographer 
 
@@ -95,38 +99,16 @@ async function mediadisplay() {
         const mediasPhotographer = mediaFactory(media, name);
         const mediaCardDom = mediasPhotographer.getMediaCardDOM();
         mediasection.appendChild(mediaCardDom);
+
     });
 
     main.appendChild(mediasection);
 
-}
-
-// mediadisplay();
-
-// add like when click on icon
-// counter likes on each media
-
-// function addlikes() {
-//     const nbLikes = document.querySelectorAll(".nblikes");
-    
-//     console.log(nbLikes);
-
-//     // nbLikes.addEventListener("click", addLikeMore);
-// }
-
-// addlikes()
-
+} 
 
 function init() {
      displayDataPhotographer();
      mediadisplay();
-    //  addlikes()
-
-    // window.addEventListener("DOMContentLoaded", (event) => {
-        // const nbLikes = document.querySelector(".medias-section");
-        
-        // console.log(nbLikes);
-    // })
 };
 
 init(); 

@@ -63,6 +63,11 @@ function photographerFactory(data) {
         return ({article, img});
     }
 
+    function getpricetjm() {
+
+        return (price)
+    }
+
     // return { name, picture, getUserCardDOM }
     return { getUserCardDOM, getDataPhotographer }
 }

@@ -246,6 +246,12 @@ form input {
     height: 350px;
     background-color: white;
 }
+
+.card-media img:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
 .card-media img {
     width: 350px;
     height: 300px;
@@ -275,6 +281,12 @@ form input {
 .counterlikes {
     display: flex;
     align-items: center;
+}
+
+.counterlikes .fas:hover {
+    transform: scale(1.2);
+    transition: transform 0.2s;
+    cursor: pointer;
 }
 
 /* .card-media-title::after {
@@ -346,7 +358,7 @@ h2 {
     box-sizing: border-box;
 }
 
-.total-likes::after {
+/* .total-likes::after {
     content: "\f004";
     font-family: "font Awesome 5 free";
     font-weight: 900;
@@ -356,10 +368,10 @@ h2 {
     left: 130px;
     right: 0;
     font-size: 24px;
-    /* opacity: 1; */
-    /* z-index: 1; */
-    color: #000000;
-  }
+    opacity: 1; 
+    z-index: 1;
+    color: #000000; 
+  } */
 
 .tjm {
     display: flex;
