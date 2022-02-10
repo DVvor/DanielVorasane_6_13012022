@@ -9,6 +9,7 @@ function mediaFactory(media, photographerName) {
     const picture = `assets/SamplePhotos/${photographerName}/${image || video}`;
     let totalLike = likes;
 
+
     function getMediaCardDOM() {
         const cardmedia = document.createElement("div");
         cardmedia.classList.add('card-media');
@@ -47,14 +48,15 @@ function mediaFactory(media, photographerName) {
 // counter likes on each media   
 
         
-    function addLikeMore(){
-        totalLike += 1;
-        console.log(totalLike);
-
+    function addLikeUpdate(){
+        totalLike += 1; 
         nbLikes.textContent = totalLike;
+        
+        const sumLikescurrent = document.querySelector(".sum-likes");
+        sumLikescurrent.textContent = parseInt(sumLikescurrent.textContent) + 1;
 
     } 
-    heart.addEventListener("click", addLikeMore);
+    heart.addEventListener("click", addLikeUpdate);
 
     cardmedia.appendChild(cardmediatitle);
     cardmediatitle.appendChild(h2);

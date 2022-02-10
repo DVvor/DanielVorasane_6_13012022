@@ -102,7 +102,14 @@ async function mediadisplay() {
 
     });
 
+
+    const sumLikes = mediasPhotographer.map(media => media.likes).reduce((prev, curr) => prev + curr, 0);
+    const displaysumLikes = document.querySelector(".sum-likes");
+    displaysumLikes.textContent = sumLikes;
+
+
     main.appendChild(mediasection);
+
 
 } 
 
