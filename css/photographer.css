@@ -314,7 +314,7 @@ h2 {
 }
 
 
-.select-bar {
+.dropdown {
     margin: 20px 100px;
     display: flex;
     flex-direction: row;
