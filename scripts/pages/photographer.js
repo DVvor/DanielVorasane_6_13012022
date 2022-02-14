@@ -98,6 +98,9 @@ async function mediadisplay() {
     const mediasPhotographer = await mediasPhotographerFound();
     const {name} = dataPhotographer;
 
+    /* sort by popularity default */
+    mediasPhotographer.sort((a,b) => a.likes - b.likes);
+
     mediasPhotographer.forEach(media => {
         const mediasPhotographer = mediaFactory(media, name);
         const mediaCardDom = mediasPhotographer.getMediaCardDOM();
@@ -126,30 +129,37 @@ init();
 
 /* Sort medias by  */
 async function sortmedia() {
+    const dataPhotographer = await photographerfound();
     const mediasPhotographer = await mediasPhotographerFound();
+    const {name} = dataPhotographer;
+    const mediaSection = document.querySelector(".medias-section");
+
 
     if (select.value == "popularite") {
-        mediasPhotographer.map(media => media.likes).sort((a,b) => a - b);
-        console.log(mediasPhotographer.map(media => media.likes).sort((a,b) => a - b));
+        mediasPhotographer.sort((a,b) => a.likes - b.likes);
     }
     if (select.value == "date") {
-        const mediaPhotographerByDate = mediasPhotographer.map(media => media.date).sort();
-        console.log(mediasPhotographer.map(media => media.date).sort());
-
-        // mediaByDate = mediaPhotographerByDate.getMediaCardDOM();
-        mediasection.innerHTML = "";
-        // mediasection.appendChild(mediaPhotographerByDate);
-
+        mediasPhotographer.sort((a, b) => a.date.localeCompare(b.date));
     }
     if (select.value == "titre") {
-        mediasPhotographer.map(media => media.title).sort();
-        console.log(mediasPhotographer.map(media => media.title).sort());
-
+        mediasPhotographer.sort((a, b) => a.title.localeCompare(b.title));
     }
+
+    mediaSection.innerHTML = "";
+
+    mediasPhotographer.forEach(media => {
+        const mediasPhotographer = mediaFactory(media, name);
+        const mediaCardDom = mediasPhotographer.getMediaCardDOM();
+        mediaSection.appendChild(mediaCardDom);
+    } );
+
+    main.appendChild(mediaSection);
+
+
 }
 
 
-sortmedia();
+// sortmedia();
 
 
 select.addEventListener("change", sortmedia);
