@@ -157,9 +157,62 @@ async function sortmedia() {
 
 
 }
-
-
-// sortmedia();
-
-
 select.addEventListener("change", sortmedia);
+
+/* create lightbox */
+function lightbox(){
+    const picture = `assets/SamplePhotos/Mimi Keel/Animals_Rainbow.jpg`;
+
+    const content = document.createElement("div");
+        content.classList.add('content-media');
+    
+    const mediaLargeSize = document.createElement("img");
+        mediaLargeSize.classList.add('media-large');
+        mediaLargeSize.setAttribute("src", picture)
+
+    const title = document.createElement("p");
+        title.classList.add('title');
+        title.textContent = "Arc-en-ciel";
+
+    // const closeBtn = document.createElement("div");
+    //     closeBtn.classList.add('close-btn');
+
+    const iconeClose = document.createElement("i");
+        iconeClose.classList.add('fas','fa-times');
+
+    
+    const previous = document.createElement("i");
+        previous.classList.add('fas','fa-chevron-left');
+
+    const next = document.createElement("i");
+        next.classList.add('fas','fa-chevron-right');
+    
+
+    main.appendChild(content);
+        content.appendChild(mediaLargeSize);
+        content.appendChild(title);
+        content.appendChild(next);
+        content.appendChild(previous);
+        // content.appendChild(closeBtn);
+        content.appendChild(iconeClose);
+    
+    
+}
+lightbox()
+
+// const cardmedia = document.querySelectorAll(".card-media");
+// const contentmedia = document.querySelector(".content-media")
+
+// console.log(contentmedia);
+// console.log(document.querySelectorAll(".card-media"));
+
+// function displayModal() {
+//     const contentmedia = document.querySelector(".content-media");
+// 	modal.style.display = "block";
+    
+// }
+
+// function closeModal() {
+//     const modal = document.getElementById("contact_modal");
+//     modal.style.display = "none";
+// }
