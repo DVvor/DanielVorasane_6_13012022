@@ -1,4 +1,15 @@
 //Mettre le code JavaScript lié à la page photographer.html
+const photographerId = getParameterId();
+const mainPagePhotographer = document.querySelector(".photograph-header")
+const main = document.querySelector("main");
+const select = document.querySelector("#selector");
+
+const mediasection = document.createElement("div");
+    mediasection.classList.add('medias-section');
+
+let mediasPhotographer = [];
+let dataPhotographer = [];
+let photographerName = "";
 
 // Find param id in URL
 function getParameterId() { 
@@ -26,14 +37,6 @@ async function getPhotographers() {
 
     return (dataPhotographers.photographers)
 } 
-
-const photographerId = getParameterId();
-const mainPagePhotographer = document.querySelector(".photograph-header")
-const main = document.querySelector("main");
-const select = document.querySelector("#selector");
-
-const mediasection = document.createElement("div");
-    mediasection.classList.add('medias-section');
 
 
 /* Find photographer by id in Json file */
@@ -69,13 +72,17 @@ async function mediasPhotographerFound() {
     const mediasPhotographerById = medias.filter(medias => medias.photographerId == photographerId);
 
     return mediasPhotographerById;
+    
+    
 }  
 
 
 /* Display datas of photographer in header and boxlikes */
 async function displayDataPhotographer() {
-    const dataPhotographer = await photographerfound();
+    dataPhotographer = await photographerfound();
+    photographerName = dataPhotographer.name;
 
+    // console.log(dataPhotographer)
 
     const photographerData = photographerFactory(dataPhotographer);
     const userCardDOM = photographerData.getDataPhotographer();
@@ -94,15 +101,14 @@ async function displayDataPhotographer() {
 /* Display medias of photographer  */
 async function mediadisplay() {
     
-    const dataPhotographer = await photographerfound();
-    const mediasPhotographer = await mediasPhotographerFound();
-    const {name} = dataPhotographer;
+    // const dataPhotographer = await photographerfound();
+    mediasPhotographer = await mediasPhotographerFound();
 
     /* sort by popularity default */
     mediasPhotographer.sort((a,b) => a.likes - b.likes);
 
     mediasPhotographer.forEach(media => {
-        const mediasPhotographer = mediaFactory(media, name);
+        const mediasPhotographer = mediaFactory(media, photographerName);
         const mediaCardDom = mediasPhotographer.getMediaCardDOM();
         mediasection.appendChild(mediaCardDom);
     } );
@@ -115,13 +121,16 @@ async function mediadisplay() {
 
     main.appendChild(mediasection);
 
+    document.querySelectorAll('.card-media').forEach(item => {
+        item.addEventListener('click', lightbox)
+    })
 
 }
 
 
 function init() {
-     displayDataPhotographer();
-     mediadisplay();
+    displayDataPhotographer();
+    mediadisplay();
 
 };
 
@@ -129,8 +138,8 @@ init();
 
 /* Sort medias by  */
 async function sortmedia() {
-    const dataPhotographer = await photographerfound();
-    const mediasPhotographer = await mediasPhotographerFound();
+    // const dataPhotographer = await photographerfound();
+    // const mediasPhotographer = await mediasPhotographerFound();
     const {name} = dataPhotographer;
     const mediaSection = document.querySelector(".medias-section");
 
@@ -155,64 +164,146 @@ async function sortmedia() {
 
     main.appendChild(mediaSection);
 
+    document.querySelectorAll('.card-media').forEach(item => {
+        item.addEventListener('click', lightbox)
+    })
+
 
 }
 select.addEventListener("change", sortmedia);
 
+
 /* create lightbox */
-function lightbox(){
-    const picture = `assets/SamplePhotos/Mimi Keel/Animals_Rainbow.jpg`;
+function lightbox(event){
 
     const content = document.createElement("div");
-        content.classList.add('content-media');
+        content.classList.add('lightbox');
     
-    const mediaLargeSize = document.createElement("img");
+    currentSource = event.target.getAttribute('src')
+    // const currentMedia = mediasPhotographer.filter(media => currentSource.includes(media.image || media.video ));
+    let currentMediaIndex = mediasPhotographer.findIndex(media => currentSource.includes(media.image || media.video ));
+
+    let mediaToDisplay = mediasPhotographer[currentMediaIndex]
+    
+    if (mediaToDisplay.hasOwnProperty('video')) {
+        const mediaLargeSize = document.createElement("video");
         mediaLargeSize.classList.add('media-large');
-        mediaLargeSize.setAttribute("src", picture)
+        mediaLargeSize.setAttribute("src", currentSource);
+        mediaLargeSize.setAttribute("controls", 'controls');
+        content.appendChild(mediaLargeSize);
+    } else if (mediaToDisplay.hasOwnProperty('image')) {
+        const mediaLargeSize = document.createElement("img");
+        mediaLargeSize.classList.add('media-large');
+        mediaLargeSize.setAttribute("src", currentSource);
+        content.appendChild(mediaLargeSize);
+    }
 
     const title = document.createElement("p");
         title.classList.add('title');
-        title.textContent = "Arc-en-ciel";
-
-    // const closeBtn = document.createElement("div");
-    //     closeBtn.classList.add('close-btn');
+        title.textContent = mediaToDisplay.title;
 
     const iconeClose = document.createElement("i");
         iconeClose.classList.add('fas','fa-times');
+        iconeClose.classList.add('icone-close-lightbox');
+        iconeClose.addEventListener("click", closeLightbox);
 
     
     const previous = document.createElement("i");
         previous.classList.add('fas','fa-chevron-left');
+        previous.addEventListener("click", previousmedia);
 
     const next = document.createElement("i");
         next.classList.add('fas','fa-chevron-right');
-    
+        next.addEventListener("click", nextmedia);
+
+    function nextmedia() {
+        currentMediaIndex += 1
+        if (currentMediaIndex == mediasPhotographer.length) {
+            currentMediaIndex = 0;
+        }
+        console.log(mediasPhotographer.length,currentMediaIndex)
+
+        let nextMediaToDisplay = mediasPhotographer[currentMediaIndex]
+
+
+        const mediaLargeSize = document.querySelector('.media-large')
+        const oldTitle = document.querySelector('.title')
+
+        content.removeChild(oldTitle)
+        content.removeChild(mediaLargeSize)
+
+        const source = `assets/SamplePhotos/${photographerName}/${nextMediaToDisplay.image || nextMediaToDisplay.video}`;
+
+        console.log(nextMediaToDisplay)
+        if (nextMediaToDisplay.hasOwnProperty('video')) {
+            const mediaLargeSize = document.createElement("video");
+            mediaLargeSize.classList.add('media-large');
+            mediaLargeSize.setAttribute("src", source);
+            mediaLargeSize.setAttribute("controls", 'controls');
+            content.appendChild(mediaLargeSize);
+        } else if (nextMediaToDisplay.hasOwnProperty('image')) {
+            const mediaLargeSize = document.createElement("img");
+            mediaLargeSize.classList.add('media-large');
+            mediaLargeSize.setAttribute("src", source);
+            content.appendChild(mediaLargeSize);
+        }
+
+        const nextMediaTitle = document.createElement("p");
+        nextMediaTitle.classList.add('title');
+        nextMediaTitle.textContent = nextMediaToDisplay.title;
+        content.appendChild(nextMediaTitle);
+    }
+
+    function previousmedia() {
+        currentMediaIndex -= 1
+        if (currentMediaIndex < 0) {
+            currentMediaIndex = mediasPhotographer.length - 1;
+        }
+        console.log(mediasPhotographer.length,currentMediaIndex)
+
+        let previousMediaToDisplay = mediasPhotographer[currentMediaIndex]
+
+
+        const mediaLargeSize = document.querySelector('.media-large')
+        const oldTitle = document.querySelector('.title')
+
+        content.removeChild(oldTitle)
+        content.removeChild(mediaLargeSize)
+
+        const source = `assets/SamplePhotos/${photographerName}/${previousMediaToDisplay.image || previousMediaToDisplay.video}`;
+
+        console.log(previousMediaToDisplay)
+        if (previousMediaToDisplay.hasOwnProperty('video')) {
+            const mediaLargeSize = document.createElement("video");
+            mediaLargeSize.classList.add('media-large');
+            mediaLargeSize.setAttribute("src", source);
+            mediaLargeSize.setAttribute("controls", 'controls');
+            content.appendChild(mediaLargeSize);
+        } else if (previousMediaToDisplay.hasOwnProperty('image')) {
+            const mediaLargeSize = document.createElement("img");
+            mediaLargeSize.classList.add('media-large');
+            mediaLargeSize.setAttribute("src", source);
+            content.appendChild(mediaLargeSize);
+        }
+
+        const nextMediaTitle = document.createElement("p");
+        nextMediaTitle.classList.add('title');
+        nextMediaTitle.textContent = previousMediaToDisplay.title;
+        content.appendChild(nextMediaTitle);
+    }
+
 
     main.appendChild(content);
-        content.appendChild(mediaLargeSize);
         content.appendChild(title);
         content.appendChild(next);
         content.appendChild(previous);
-        // content.appendChild(closeBtn);
         content.appendChild(iconeClose);
-    
-    
+
 }
-lightbox()
 
-// const cardmedia = document.querySelectorAll(".card-media");
-// const contentmedia = document.querySelector(".content-media")
+function closeLightbox() {        
+    const content = document.querySelector('.lightbox');
+    main.removeChild(content)
 
-// console.log(contentmedia);
-// console.log(document.querySelectorAll(".card-media"));
+}
 
-// function displayModal() {
-//     const contentmedia = document.querySelector(".content-media");
-// 	modal.style.display = "block";
-    
-// }
-
-// function closeModal() {
-//     const modal = document.getElementById("contact_modal");
-//     modal.style.display = "none";
-// }

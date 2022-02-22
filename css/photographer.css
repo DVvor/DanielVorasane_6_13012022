@@ -247,7 +247,7 @@ form input {
     background-color: white;
 }
 
-.card-media img:hover {
+.card-media {
     /* opacity: 0.7; */
     cursor: pointer;
 }
@@ -388,12 +388,21 @@ h2 {
     }
   }
 
-
+  @keyframes lightboxopen {
+    from {
+      opacity: 0;
+      transform: scale3d(0.5,0.5,0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale3d(1,1,1);    
+    }
+  }
 /*lightbox*/ 
 
-.content-media {
-    width: 1253px;
-    height: 984px;
+.lightbox {
+    width: 100%;
+    height: 100%;
     margin: auto;
     position: fixed;
     top: 0px;
@@ -403,42 +412,78 @@ h2 {
     background-color: white;
     border-radius: 5px;
     z-index: 1;
+    display: block;
 }
 
-.content-media img {
-    height: 900px;
-    width: 1050px;
-    margin-top: 22px;
-    margin-left: 100px;
+.lightbox {
+    animation-name: lightboxopen;
+    animation-duration: 0.8s;
+}
+
+.lightbox img {
+    height: 80%;
+    width: 80%;
+    object-fit: cover;
+    position: absolute;
+    transform: translate(12%, -50%);
+    top: 50%;
     border-radius: 5px;
 
 }
 
-.content-media .title {
+.lightbox video {
+    height: 80%;
+    width: 80%;
+    position: absolute;
+    transform: translate(12%, -50%);
+    top: 50%;
+    border-radius: 5px;
+
+}
+
+.lightbox .title {
     font-size: 24px;
     color: #901C1C;
-    margin-left: 100px;
+    position: absolute;
+    bottom: 5%;
+    left: 10%;
+    width: 80%;
 
 } 
 
 .fa-times {
     position: absolute;
-    right: 30px;
-    top: 40px;
+    right: 4%;
+    top: 100px;
+    transform: translate(0%, -50%);
 }
+
+.icone-close-lightbox:hover {
+    cursor: pointer;
+}
+
+.icone-close-lightbox:hover,
+.fa-chevron-left:hover , 
+.fa-chevron-right:hover {
+    color: #DB8876;
+}
+
+
 .fa-times , .fa-chevron-left , .fa-chevron-right {
     font-size: 42px;
     color: #901C1C;
 }
 .fa-chevron-left {
     position: absolute;
-    left: 35px;
+    left: 4%;
     top: 50%;
+    transform: translate(0%, -50%);
 
 }
 .fa-chevron-right {
     position: absolute;
-    right: 35px;
+    right: 4%;
     top: 50%;
+    transform: translate(0%, -50%);
 
 }
