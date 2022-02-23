@@ -4,6 +4,7 @@
 
 html {
     font-family: "DM Sans", sans-serif;
+    margin: 0px 100px;
 }
 
 main {
@@ -12,7 +13,7 @@ main {
 .photograph-header {
     background-color: #FAFAFA;
     height: 300px;
-    margin: 0 100px;
+    width: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -84,7 +85,7 @@ main {
 .modal {
     border-radius: 5px;
     background-color: #DB8876;
-    width: 669px;
+    width: 50%;
     height: 930px;
     display: flex;
     flex-direction: column;
@@ -92,13 +93,14 @@ main {
     align-items: center;
     padding: 35px;
     margin: auto;
-    position: absolute;
+    position: fixed;
     top: 0px;
     right: 0px;
     bottom: 0px;
     left: 0px;
     animation-name: modalopen;
     animation-duration: 0.8s;
+    z-index: 2;
 }
 
 .modal-message-sent {
@@ -206,8 +208,7 @@ color: white;
     grid-template-columns: 0fr 0fr 0fr;
     justify-content: space-between;
     gap: 70px;
-    margin-top: 100px;
-    margin: 0 100px;
+    /* margin-top: 100px; */
 }
 
 .card-media {
@@ -267,7 +268,7 @@ h2 {
 }
 
 .dropdown-bar {
-    margin: 20px 100px;
+    margin: 20px 0px;
     display: flex;
     flex-direction: row;
     gap: 20px;
