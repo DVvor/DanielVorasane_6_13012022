@@ -34,11 +34,13 @@ function mediaFactory(media, photographerName) {
         if ('image' in media ) {
             const img = document.createElement('img');
             img.setAttribute("src", picture);
+            img.setAttribute("alt", title)
             cardmedia.appendChild(img);
         } else if( 'video' in media) {
             const video = document.createElement('video');
             video.setAttribute("controls", "controls");
             video.setAttribute("src", picture);
+            video.setAttribute("alt", title)
             cardmedia.appendChild(video);
         }
         

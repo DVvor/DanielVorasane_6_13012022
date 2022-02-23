@@ -65,19 +65,15 @@ a {
     object-fit: cover;
 }
 
-.photographer_section article h3 {
+.photographer_section article {
     color: #901C1C;
-    font-size: 13px;
+    font-size: 18px;
     margin-top: 0px;
-    margin-bottom: 0px;;
-}
-
-.photographer_section article  {
-    color: #901C1C;
-    font-size: 13px;
+    margin-bottom: 0px;
     transition: transform .5s; /* Animation */
 
 }
+
 
 .photographer_section article:hover {
     transform: scale(1.1);
@@ -91,7 +87,7 @@ a {
 }
 
 .photographer_section .tjm  {
-    font-size: 9px;
+    font-size: 15px;
     margin: 0px;
     color: #757575;
 }

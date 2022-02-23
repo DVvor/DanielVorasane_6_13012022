@@ -17,7 +17,6 @@
                 console.log(error);  
             });
 
-// https://openclassrooms.com/fr/courses/5543061-ecrivez-du-javascript-pour-le-web/5577591-recuperez-des-donnees-dun-service-web
         
         // et bien retourner le tableau photographers seulement une fois
         // ...afficher tous les éléments du tableau
