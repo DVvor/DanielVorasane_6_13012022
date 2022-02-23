@@ -11,12 +11,6 @@ function closeModal() {
 }
 
 //Message validation form
-function messageSent() {
-    const modalMessageSent = document.querySelector(".modal-message-sent")
-    modalMessageSent.style.display = "none";
-}
-messageSent()
-
 //close modal message sent
 function closeModalMessageSent() {
     modalMessageSent.style.display = "none";
