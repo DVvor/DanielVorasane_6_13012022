@@ -2,7 +2,12 @@
 const photographerId = getParameterId();
 const mainPagePhotographer = document.querySelector(".photograph-header")
 const main = document.querySelector("main");
-const select = document.querySelector("#selector");
+let select = document.querySelector(".select-selected");
+let selected = document.querySelector('.select-selected');
+let selectTwo = document.querySelector('.select-two');
+let selectThree = document.querySelector('.select-three');
+let arrow = document.querySelector('.fa-angle-up');
+
 
 const mediasection = document.createElement("div");
     mediasection.classList.add('medias-section');
@@ -137,20 +142,19 @@ function init() {
 init(); 
 
 /* Sort medias by  */
-async function sortmedia() {
-    // const dataPhotographer = await photographerfound();
-    // const mediasPhotographer = await mediasPhotographerFound();
+function sortmedia() {
+
     const {name} = dataPhotographer;
     const mediaSection = document.querySelector(".medias-section");
 
 
-    if (select.value == "popularite") {
+    if (select.textContent == "Popularité") {
         mediasPhotographer.sort((a,b) => a.likes - b.likes);
     }
-    if (select.value == "date") {
+    if (select.textContent == "Date") {
         mediasPhotographer.sort((a, b) => a.date.localeCompare(b.date));
     }
-    if (select.value == "titre") {
+    if (select.textContent == "Titre") {
         mediasPhotographer.sort((a, b) => a.title.localeCompare(b.title));
     }
 
@@ -168,9 +172,7 @@ async function sortmedia() {
         item.addEventListener('click', lightbox)
     })
 
-
 }
-select.addEventListener("change", sortmedia);
 
 
 /* create lightbox */
@@ -217,6 +219,7 @@ function lightbox(event){
         next.addEventListener("click", nextmedia);
 
     function nextmedia() {
+
         currentMediaIndex += 1
         if (currentMediaIndex == mediasPhotographer.length) {
             currentMediaIndex = 0;
@@ -255,6 +258,7 @@ function lightbox(event){
     }
 
     function previousmedia() {
+
         currentMediaIndex -= 1
         if (currentMediaIndex < 0) {
             currentMediaIndex = mediasPhotographer.length - 1;
@@ -292,7 +296,6 @@ function lightbox(event){
         content.appendChild(nextMediaTitle);
     }
 
-
     main.appendChild(content);
         content.appendChild(title);
         content.appendChild(next);
@@ -306,4 +309,59 @@ function closeLightbox() {
     main.removeChild(content)
 
 }
+
+function openDropdown() {
+    
+    selected.style.borderRadius = '5px 5px 0px 0px';
+    selectThree.style.borderRadius = '0px 0px 5px 5px';
+
+    selectTwo.style.display = 'block';
+    selectThree.style.display = 'block';
+    
+    arrow.classList.replace("fa-angle-up","fa-angle-down");
+}
+
+function closeDropdown(event) {
+
+    const arrowUp = document.querySelector('.fa-angle-up')
+    const arrowDown = document.querySelector('.fa-angle-down')
+
+    if(event.target != selected && event.target != arrowDown && event.target != arrowUp) {
+        selectTwo.style.display = 'none';
+        selectThree.style.display = 'none';
+        selected.style.borderRadius = '5px';
+    }
+}
+selected.addEventListener("click", openDropdown)
+document.addEventListener("click", closeDropdown)
+
+function chooseSelect(event) {
+
+    const valeurEvent = event.target.textContent;
+
+    if (valeurEvent == "Popularité") {
+        selected.textContent = "Popularité";
+        selectTwo.textContent = "Date";
+        selectThree.textContent = "Titre";
+    } else if (valeurEvent == "Date") {
+        selected.textContent = "Date";
+        selectTwo.textContent = "Popularité";
+        selectThree.textContent = "Titre";
+    } else if (valeurEvent == "Titre") {
+        selected.textContent = "Titre";
+        selectTwo.textContent = "Popularité";
+        selectThree.textContent = "Date";
+    }
+    selectTwo.style.display = 'none';
+    selectThree.style.display = 'none';
+
+    selected.style.borderRadius = '5px';
+    const arrowUp = document.createElement("i");
+    arrowUp.classList.add("arrow","fas","fa-angle-up");
+    selected.appendChild(arrowUp);
+
+    sortmedia()
+}
+selectTwo.addEventListener("click", chooseSelect)
+selectThree.addEventListener("click", chooseSelect)
 

@@ -55,7 +55,7 @@ main {
 
 
 
-.contact_button , #selector, .btnclose {
+.contact_button , .btnclose {
     font-size: 20px;
     font-weight: bold;
     color: white;
@@ -73,18 +73,13 @@ main {
 .contact_button:nth-child(1):hover{
     background-color: #DB8876;
     color: #000000;
-    /* transform: scale(1.1); */
 }
+
 .contact_button:nth-child(n+2):hover,
 .btnclose:hover  {
-    /* color: #000000; */
-    /* transform: scale(1.1); */
     border: 2px solid #FAFAFA;
 }
 
-#selector {
-    font-size: 18px;
-}
 
 .modal {
     border-radius: 5px;
@@ -127,7 +122,6 @@ main {
     left: 0px;
     animation-name: modalopen;
     animation-duration: 0.8s;
-
 }
 
 
@@ -186,42 +180,18 @@ form input {
     line-height: 0.3;
     opacity: 0;
     transition: 0.3s;
-  }
+  }  
+.formData[data-error-visible="true"]::after {
+opacity: 1;
+}
 
-/* .btn-submit-bl[data-error]::after{
-    content: attr(data-error);
-    background-color: #fe142f;
-    font-size: 0.8em;
-    color: #fff;
-    display: block;
-    margin-top: 7px;
-    text-align: left;
-    opacity: 0;
-    width: 112%;
-    margin-left: -40px;
-    padding: 15px;
-  } */
-  
-  
-  .formData[data-error-visible="true"]::after {
-    opacity: 1;
-  }
-  
-  .btn-submit-bl[data-error-visible="true"]::after {
-    opacity: 1;
-  }
-  .formData[data-error-visible="true"] .text-control {
-    /* border: 5px solid rgb(2, 88, 250); */
-    background-color: #901C1C;
-    color: white;
-  }
-  
-
-  
-
-
-
-
+.btn-submit-bl[data-error-visible="true"]::after {
+opacity: 1;
+}
+.formData[data-error-visible="true"] .text-control {
+background-color: #901C1C;
+color: white;
+}
 
 #Yourmessage {
     font-size: 26px;
@@ -229,7 +199,6 @@ form input {
     width: 100%;
     border-radius: 5px;
     font-family: "DM Sans", sans-serif;
-
 }
 
 .medias-section {
@@ -248,7 +217,6 @@ form input {
 }
 
 .card-media {
-    /* opacity: 0.7; */
     cursor: pointer;
 }
 
@@ -289,21 +257,6 @@ form input {
     cursor: pointer;
 }
 
-/* .card-media-title::after {
-    content: "\f004";
-    font-family: "font Awesome 5 free";
-    font-weight: 900;
-    position: absolute;
-    top: 1px;
-    bottom: 0;
-    left: 92%;
-    right: 0;
-    font-size: 20px;
-    opacity: 1;
-    z-index: 1;
-    color: #901C1C;
-} */
-
 h2 {
     margin: 0px;
     font-size: 20px;
@@ -313,25 +266,83 @@ h2 {
     margin-right: 5px;
 }
 
-.dropdown {
+.dropdown-bar {
     margin: 20px 100px;
     display: flex;
     flex-direction: row;
     gap: 20px;
-
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 70px;
+    position: relative;
+}
+.dropdown-label {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 23px;
 }
 
-#selector .option {
+.dropdown {
+    position: absolute;
+    left: 100px;
+    top: 0px;
     font-size: 20px;
     font-weight: bold;
     color: white;
-    padding: 11px;
-    width: 170px;
-    height: 70px;
-    border: none;
-    background-color: #901C1C;
     border-radius: 5px;
     cursor: pointer;
+    z-index: 1;
+}
+.select {
+    width: 170px;
+    height: 60px;
+    padding: 15px 10px 10px 25px;
+    background-color: #901C1C;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+}
+.select:hover {
+    background-color: #DB8876;
+    color: #000000;
+}
+
+.select-selected {
+    position: relative;
+    border-radius: 5px;  
+}
+.arrow {
+    font-size: 25px;
+    position: absolute;
+    right: 15px;
+}
+
+.select-two::after {
+    position: absolute;
+    top: 0px;
+    left: 15px;
+    content:"";
+    height:1px;
+    width:140px;
+    background: white;
+    
+}
+.select-three::after {
+    position: absolute;
+    top: 0px;
+    left: 15px;
+    content:"";
+    height:1px;
+    width:140px;
+    background: white;
+}
+
+.select-three, .select-two {
+    position: relative;
+    display: none;
+    animation-name: selectopen;
+    animation-duration: 0.3s;
 }
 
 .box-likes {
@@ -388,16 +399,27 @@ h2 {
     }
   }
 
-  @keyframes lightboxopen {
+@keyframes lightboxopen {
+from {
+    opacity: 0;
+    transform: scale3d(0.5,0.5,0.5);
+}
+to {
+    opacity: 1;
+    transform: scale3d(1,1,1);    
+}
+}
+
+@keyframes selectopen {
     from {
       opacity: 0;
-      transform: scale3d(0.5,0.5,0.5);
+      transform: translateY(-70px);
     }
     to {
-        opacity: 1;
-        transform: scale3d(1,1,1);    
+      opacity: 1;
     }
   }
+
 /*lightbox*/ 
 
 .lightbox {
