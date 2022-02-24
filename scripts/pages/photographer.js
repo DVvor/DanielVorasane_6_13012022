@@ -7,6 +7,7 @@ let selected = document.querySelector('.select-selected');
 let selectTwo = document.querySelector('.select-two');
 let selectThree = document.querySelector('.select-three');
 let arrow = document.querySelector('.fa-angle-up');
+const listbox = document.querySelector('.dropdown');
 
 
 const mediasection = document.createElement("div");
@@ -149,8 +150,8 @@ function sortmedia() {
 
 
     if (select.textContent == "Popularité") {
-        mediasPhotographer.sort((a,b) => a.likes - b.likes);
-    }
+        mediasPhotographer.sort((a,b) => a.likes - b.likes);    
+    } 
     if (select.textContent == "Date") {
         mediasPhotographer.sort((a, b) => a.date.localeCompare(b.date));
     }
@@ -180,6 +181,7 @@ function lightbox(event){
 
     const content = document.createElement("div");
         content.classList.add('lightbox');
+        content.setAttribute('role', 'dialog');
     
     currentSource = event.target.getAttribute('src')
     // const currentMedia = mediasPhotographer.filter(media => currentSource.includes(media.image || media.video ));
@@ -191,12 +193,16 @@ function lightbox(event){
         const mediaLargeSize = document.createElement("video");
         mediaLargeSize.classList.add('media-large');
         mediaLargeSize.setAttribute("src", currentSource);
+        mediaLargeSize.setAttribute("aria-label", "video close-up view");
+        mediaLargeSize.setAttribute('role', 'video');
         mediaLargeSize.setAttribute("controls", 'controls');
         content.appendChild(mediaLargeSize);
     } else if (mediaToDisplay.hasOwnProperty('image')) {
         const mediaLargeSize = document.createElement("img");
         mediaLargeSize.classList.add('media-large');
+        mediaLargeSize.setAttribute('role', 'img');
         mediaLargeSize.setAttribute("src", currentSource);
+        mediaLargeSize.setAttribute("aria-label", "image close-up view");
         content.appendChild(mediaLargeSize);
     }
 
@@ -207,15 +213,31 @@ function lightbox(event){
     const iconeClose = document.createElement("i");
         iconeClose.classList.add('fas','fa-times');
         iconeClose.classList.add('icone-close-lightbox');
+        iconeClose.setAttribute("tabindex", "0");
+        iconeClose.setAttribute("aria-label", "close");
+        iconeClose.setAttribute("role", "close dialog");
+
+
         iconeClose.addEventListener("click", closeLightbox);
 
     
     const previous = document.createElement("i");
         previous.classList.add('fas','fa-chevron-left');
+        previous.setAttribute("tabindex", "0");
+        previous.setAttribute("aria-label", "previous media");
+        previous.setAttribute("role", "link");
+
+
         previous.addEventListener("click", previousmedia);
 
     const next = document.createElement("i");
         next.classList.add('fas','fa-chevron-right');
+        next.setAttribute("tabindex", "0");
+        next.setAttribute("aria-label", "next media");
+        next.setAttribute("role", "link");
+
+
+
         next.addEventListener("click", nextmedia);
 
     function nextmedia() {
@@ -241,12 +263,16 @@ function lightbox(event){
         if (nextMediaToDisplay.hasOwnProperty('video')) {
             const mediaLargeSize = document.createElement("video");
             mediaLargeSize.classList.add('media-large');
+            mediaLargeSize.setAttribute("aria-label", "video close-up view");
+            mediaLargeSize.setAttribute('role', 'video');
             mediaLargeSize.setAttribute("src", source);
             mediaLargeSize.setAttribute("controls", 'controls');
             content.appendChild(mediaLargeSize);
         } else if (nextMediaToDisplay.hasOwnProperty('image')) {
             const mediaLargeSize = document.createElement("img");
             mediaLargeSize.classList.add('media-large');
+            mediaLargeSize.setAttribute('role', 'img');
+            mediaLargeSize.setAttribute("aria-label", "image close-up view");
             mediaLargeSize.setAttribute("src", source);
             content.appendChild(mediaLargeSize);
         }
@@ -280,12 +306,16 @@ function lightbox(event){
         if (previousMediaToDisplay.hasOwnProperty('video')) {
             const mediaLargeSize = document.createElement("video");
             mediaLargeSize.classList.add('media-large');
+            mediaLargeSize.setAttribute("aria-label", "video close-up view");
+            mediaLargeSize.setAttribute('role', 'video');
             mediaLargeSize.setAttribute("src", source);
             mediaLargeSize.setAttribute("controls", 'controls');
             content.appendChild(mediaLargeSize);
         } else if (previousMediaToDisplay.hasOwnProperty('image')) {
             const mediaLargeSize = document.createElement("img");
             mediaLargeSize.classList.add('media-large');
+            mediaLargeSize.setAttribute('role', 'img');
+            mediaLargeSize.setAttribute("aria-label", "image close-up view");
             mediaLargeSize.setAttribute("src", source);
             content.appendChild(mediaLargeSize);
         }
@@ -319,18 +349,28 @@ function openDropdown() {
     selectThree.style.display = 'block';
     
     arrow.classList.replace("fa-angle-up","fa-angle-down");
+
+    listbox.setAttribute("aria-expanded",'true');
+    selected.setAttribute("tabindex", "0");
+    selectTwo.setAttribute("tabindex", "0");
+    selectThree.setAttribute("tabindex", "0");
+
 }
 
 function closeDropdown(event) {
 
     const arrowUp = document.querySelector('.fa-angle-up')
     const arrowDown = document.querySelector('.fa-angle-down')
+    
 
     if(event.target != selected && event.target != arrowDown && event.target != arrowUp) {
         selectTwo.style.display = 'none';
         selectThree.style.display = 'none';
         selected.style.borderRadius = '5px';
+        listbox.setAttribute("aria-expanded","false");
+
     }
+
 }
 selected.addEventListener("click", openDropdown)
 document.addEventListener("click", closeDropdown)

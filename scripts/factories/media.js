@@ -13,6 +13,7 @@ function mediaFactory(media, photographerName) {
     function getMediaCardDOM() {
         const cardmedia = document.createElement("div");
         cardmedia.classList.add('card-media');
+        cardmedia.setAttribute("tabindex", "0");
         
         const cardmediatitle = document.createElement('div');
         cardmediatitle.classList.add('card-media-title');
@@ -29,18 +30,24 @@ function mediaFactory(media, photographerName) {
 
         const heart = document.createElement('i');
         heart.classList.add('fas','fa-heart');
+        heart.setAttribute("aria-label", "likes");
 
 // Choose type of media if its image or video
         if ('image' in media ) {
             const img = document.createElement('img');
             img.setAttribute("src", picture);
             img.setAttribute("alt", title)
+            img.setAttribute("role", "image link")
+            
+
             cardmedia.appendChild(img);
         } else if( 'video' in media) {
             const video = document.createElement('video');
             video.setAttribute("controls", "controls");
             video.setAttribute("src", picture);
             video.setAttribute("alt", title)
+            video.setAttribute("role", "video link")
+
             cardmedia.appendChild(video);
         }
         
