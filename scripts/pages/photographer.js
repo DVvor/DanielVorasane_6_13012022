@@ -12,8 +12,8 @@ let heart = document.querySelectorAll("fa-heart");
 const modal = document.getElementById("contact_modal");
 
 
-const mediasection = document.createElement("div");
-    mediasection.classList.add('medias-section');
+const mediasSection = document.createElement("div");
+    mediasSection.classList.add('medias-section');
 
 let mediasPhotographer = [];
 let totalLike = mediasPhotographer.likes;
@@ -27,7 +27,6 @@ function getParameterId() {
 
        return (paramsId);
 } 
-
 
 /* Find datas of photographer in Json file */
 async function getPhotographers() {
@@ -46,7 +45,6 @@ async function getPhotographers() {
 
     return (dataPhotographers.photographers)
 } 
-
 
 /* Find photographer by id in Json file */
 async function photographerfound() {
@@ -81,8 +79,6 @@ async function mediasPhotographerFound() {
     const mediasPhotographerById = medias.filter(medias => medias.photographerId == photographerId);
 
     return mediasPhotographerById;
-    
-    
 }  
 
 
@@ -117,7 +113,7 @@ async function mediadisplay() {
     mediasPhotographer.forEach(media => {
         const mediasPhotographer = mediaFactory(media, photographerName);
         const mediaCardDom = mediasPhotographer.getMediaCardDOM();
-        mediasection.appendChild(mediaCardDom);
+        mediasSection.appendChild(mediaCardDom);
     } );
 
     /* display sum of likes  */
@@ -126,7 +122,7 @@ async function mediadisplay() {
     displaysumLikes.textContent = sumLikes;
 
 
-    main.appendChild(mediasection);
+    main.appendChild(mediasSection);
 
     document.querySelectorAll('.media-image').forEach(item => {
         item.addEventListener('click', lightbox)
@@ -141,7 +137,6 @@ function init() {
     mediadisplay();
 
 };
-
 init(); 
 
 
@@ -179,7 +174,6 @@ function sortmedia() {
 
 }
 
-
 /* create lightbox */
 function lightbox(event){
 
@@ -188,12 +182,9 @@ function lightbox(event){
         content.setAttribute('role', 'dialog');
 
     currentSource = event.target.getAttribute('src')
-
     // const currentMedia = mediasPhotographer.filter(media => currentSource.includes(media.image || media.video ));
     let currentMediaIndex = mediasPhotographer.findIndex(media => currentSource.includes(media.image || media.video ));
-    
     let mediaToDisplay = mediasPhotographer[currentMediaIndex]
-    
     if (mediaToDisplay.hasOwnProperty('video')) {
         const mediaLargeSize = document.createElement("video");
         mediaLargeSize.classList.add('media-large');
@@ -201,12 +192,14 @@ function lightbox(event){
         mediaLargeSize.setAttribute("aria-label", "video close-up view");
         mediaLargeSize.setAttribute('role', 'video');
         mediaLargeSize.setAttribute("controls", 'controls');
+        mediaLargeSize.setAttribute("title", mediaToDisplay.title);
         content.appendChild(mediaLargeSize);
     } else if (mediaToDisplay.hasOwnProperty('image')) {
         const mediaLargeSize = document.createElement("img");
         mediaLargeSize.classList.add('media-large');
         mediaLargeSize.setAttribute('role', 'img');
         mediaLargeSize.setAttribute("src", currentSource);
+        mediaLargeSize.setAttribute("title", mediaToDisplay.title);
         mediaLargeSize.setAttribute("aria-label", "image close-up view");
         content.appendChild(mediaLargeSize);
     }
@@ -232,7 +225,6 @@ function lightbox(event){
         previous.setAttribute("aria-label", "previous media");
         previous.setAttribute("role", "link");
 
-
         previous.addEventListener("click", previousmedia);
 
     const next = document.createElement("i");
@@ -242,90 +234,7 @@ function lightbox(event){
         next.setAttribute("role", "link");
 
 
-
         next.addEventListener("click", nextmedia);
-
-    function nextmedia() {
-
-        currentMediaIndex += 1
-        if (currentMediaIndex == mediasPhotographer.length) {
-            currentMediaIndex = 0;
-        }
-
-        let nextMediaToDisplay = mediasPhotographer[currentMediaIndex]
-
-
-        const mediaLargeSize = document.querySelector('.media-large')
-        const oldTitle = document.querySelector('.title')
-
-        content.removeChild(oldTitle)
-        content.removeChild(mediaLargeSize)
-
-        const source = `assets/SamplePhotos/${photographerName}/${nextMediaToDisplay.image || nextMediaToDisplay.video}`;
-
-        if (nextMediaToDisplay.hasOwnProperty('video')) {
-            const mediaLargeSize = document.createElement("video");
-            mediaLargeSize.classList.add('media-large');
-            mediaLargeSize.setAttribute("aria-label", "video close-up view");
-            mediaLargeSize.setAttribute('role', 'video');
-            mediaLargeSize.setAttribute("src", source);
-            mediaLargeSize.setAttribute("controls", 'controls');
-            content.appendChild(mediaLargeSize);
-        } else if (nextMediaToDisplay.hasOwnProperty('image')) {
-            const mediaLargeSize = document.createElement("img");
-            mediaLargeSize.classList.add('media-large');
-            mediaLargeSize.setAttribute('role', 'img');
-            mediaLargeSize.setAttribute("aria-label", "image close-up view");
-            mediaLargeSize.setAttribute("src", source);
-            content.appendChild(mediaLargeSize);
-        }
-
-        const nextMediaTitle = document.createElement("p");
-        nextMediaTitle.classList.add('title');
-        nextMediaTitle.textContent = nextMediaToDisplay.title;
-        content.appendChild(nextMediaTitle);
-    }
-
-    function previousmedia() {
-
-        currentMediaIndex -= 1
-        if (currentMediaIndex < 0) {
-            currentMediaIndex = mediasPhotographer.length - 1;
-        }
-
-        let previousMediaToDisplay = mediasPhotographer[currentMediaIndex]
-
-
-        const mediaLargeSize = document.querySelector('.media-large')
-        const oldTitle = document.querySelector('.title')
-
-        content.removeChild(oldTitle)
-        content.removeChild(mediaLargeSize)
-
-        const source = `assets/SamplePhotos/${photographerName}/${previousMediaToDisplay.image || previousMediaToDisplay.video}`;
-
-        if (previousMediaToDisplay.hasOwnProperty('video')) {
-            const mediaLargeSize = document.createElement("video");
-            mediaLargeSize.classList.add('media-large');
-            mediaLargeSize.setAttribute("aria-label", "video close-up view");
-            mediaLargeSize.setAttribute('role', 'video');
-            mediaLargeSize.setAttribute("src", source);
-            mediaLargeSize.setAttribute("controls", 'controls');
-            content.appendChild(mediaLargeSize);
-        } else if (previousMediaToDisplay.hasOwnProperty('image')) {
-            const mediaLargeSize = document.createElement("img");
-            mediaLargeSize.classList.add('media-large');
-            mediaLargeSize.setAttribute('role', 'img');
-            mediaLargeSize.setAttribute("aria-label", "image close-up view");
-            mediaLargeSize.setAttribute("src", source);
-            content.appendChild(mediaLargeSize);
-        }
-
-        const nextMediaTitle = document.createElement("p");
-        nextMediaTitle.classList.add('title');
-        nextMediaTitle.textContent = previousMediaToDisplay.title;
-        content.appendChild(nextMediaTitle);
-    }
 
     main.appendChild(content);
         content.appendChild(title);
@@ -335,11 +244,105 @@ function lightbox(event){
 
 }
 
+function nextmedia() {
+    const content = document.querySelector(".lightbox");
+    let mediaLargeSize = document.querySelector('.media-large');
+    let mediaLargeSizeSrc = mediaLargeSize.src;
+    let title = document.querySelector('.title');
+
+    currentMediaIndex = mediasPhotographer.findIndex(media => mediaLargeSizeSrc.includes(media.image ||media.video ));
+    
+    //add index +1
+    currentMediaIndex++
+    
+
+    // If last index, return to first index
+    if (currentMediaIndex == mediasPhotographer.length) {
+        currentMediaIndex = 0;
+    }
+    
+    let nextMediaToDisplay = mediasPhotographer[currentMediaIndex];
+
+
+    content.removeChild(title);
+    content.removeChild(mediaLargeSize);
+
+    const source = `assets/SamplePhotos/${photographerName}/${nextMediaToDisplay.image || nextMediaToDisplay.video}`;
+
+    if (nextMediaToDisplay.hasOwnProperty('video')) {
+        const mediaLargeSize = document.createElement("video");
+        mediaLargeSize.classList.add('media-large');
+        mediaLargeSize.setAttribute("aria-label", "video close-up view");
+        mediaLargeSize.setAttribute('role', 'video');
+        mediaLargeSize.setAttribute("src", source);
+        mediaLargeSize.setAttribute("controls", 'controls');
+        content.appendChild(mediaLargeSize);
+    } else if (nextMediaToDisplay.hasOwnProperty('image')) {
+        const mediaLargeSize = document.createElement("img");
+        mediaLargeSize.classList.add('media-large');
+        mediaLargeSize.setAttribute('role', 'img');
+        mediaLargeSize.setAttribute("aria-label", "image close-up view");
+        mediaLargeSize.setAttribute("src", source);
+        content.appendChild(mediaLargeSize);
+    }
+
+    const nextMediaTitle = document.createElement("p");
+    nextMediaTitle.classList.add('title');
+    nextMediaTitle.textContent = nextMediaToDisplay.title;
+    content.appendChild(nextMediaTitle);
+}
+
+function previousmedia() {
+    const content = document.querySelector(".lightbox");
+    let mediaLargeSize = document.querySelector('.media-large');
+    let mediaLargeSizeSrc = mediaLargeSize.src;
+    let title = document.querySelector('.title');
+
+
+    let currentMediaIndex = mediasPhotographer.findIndex(media => mediaLargeSizeSrc.includes(media.image || media.video ));
+
+    currentMediaIndex -= 1
+    if (currentMediaIndex < 0) {
+        currentMediaIndex = mediasPhotographer.length - 1;
+    }
+
+    let previousMediaToDisplay = mediasPhotographer[currentMediaIndex];
+
+    content.removeChild(title);
+    content.removeChild(mediaLargeSize);
+
+    const source = `assets/SamplePhotos/${photographerName}/${previousMediaToDisplay.image || previousMediaToDisplay.video}`;
+
+    if (previousMediaToDisplay.hasOwnProperty('video')) {
+        const mediaLargeSize = document.createElement("video");
+        mediaLargeSize.classList.add('media-large');
+        mediaLargeSize.setAttribute("aria-label", "video close-up view");
+        mediaLargeSize.setAttribute('role', 'video');
+        mediaLargeSize.setAttribute("src", source);
+        mediaLargeSize.setAttribute("controls", 'controls');
+        content.appendChild(mediaLargeSize);
+    } else if (previousMediaToDisplay.hasOwnProperty('image')) {
+        const mediaLargeSize = document.createElement("img");
+        mediaLargeSize.classList.add('media-large');
+        mediaLargeSize.setAttribute('role', 'img');
+        mediaLargeSize.setAttribute("aria-label", "image close-up view");
+        mediaLargeSize.setAttribute("src", source);
+        content.appendChild(mediaLargeSize);
+    }
+
+    const nextMediaTitle = document.createElement("p");
+    nextMediaTitle.classList.add('title');
+    nextMediaTitle.textContent = previousMediaToDisplay.title;
+    content.appendChild(nextMediaTitle);
+}
+
+
 function closeLightbox() {        
     const content = document.querySelector('.lightbox');
     main.removeChild(content)
 
 }
+
 
 function openDropdown() {
     
@@ -356,6 +359,12 @@ function openDropdown() {
     selectTwo.setAttribute("tabindex", "0");
     selectThree.setAttribute("tabindex", "0");
 
+    logoLink.setAttribute("tabindex","-1");
+    listbox.setAttribute("tabindex","-1");
+    document.querySelectorAll(".media-image").forEach(elem => elem.removeAttribute("tabindex"));
+    document.querySelectorAll(".fa-heart").forEach(elem => elem.removeAttribute("tabindex"));
+    btnContactButton.setAttribute("tabindex","-1");
+
 }
 
 function closeDropdown(event) {
@@ -371,11 +380,14 @@ function closeDropdown(event) {
         listbox.setAttribute("aria-expanded","false");
 
     }
-
-
+    logoLink.setAttribute("tabindex","0");
+    listbox.setAttribute("tabindex","0");
+    document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabindex","0"));
+    document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabindex","0"));
+    btnContactButton.setAttribute("tabindex","0");
 }
 selected.addEventListener("click", openDropdown)
-document.addEventListener("click", closeDropdown)
+// document.addEventListener("click", closeDropdown)
 
 function chooseSelect(event) {
 
@@ -412,8 +424,7 @@ selectThree.addEventListener("click", chooseSelect)
 
 
 /* DOM */
-
-const logoLink = document.querySelector(".logo-link");
+const logoLink = document.getElementById("logo-link");
 const mediaImage = document.querySelectorAll(".media-image");
 const btnCloseModal = document.querySelector(".close");
 const btnContactButton = document.querySelector(".contact_button");
@@ -423,39 +434,65 @@ document.addEventListener("keydown", (event)=>{
 
     if(event.key === "Enter"){
 
+/***Accessibility lightbox*********************************************************************/
+
         if(event.target.className === "media-image"){
+            main.setAttribute("aria-hidden" , "false");
+            mediasSection.style.display="none";
+            listbox.style.display="none";
+            btnContactButton.style.display="none";
+            logoLink.style.display="none";
             lightbox(event);
+        } 
+        if (event.target.className.includes("icone-close-lightbox")){
+            closeLightbox()
+            mediasSection.style.display="grid";
+            listbox.style.display="block";
+            btnContactButton.style.display="block";
+            logoLink.style.display="block";
         }
+        if(event.target.className === "fas fa-chevron-right"){
+            nextmedia()
+        }
+        if(event.target.className === "fas fa-chevron-left"){
+            previousmedia()
+        }
+
+/**********************************************************************************************/
+
+/***Accessibility dropdown*********************************************************************/
+
         if(event.target.className === "dropdown"){
             openDropdown(event);
-            logoLink.setAttribute("tabIndex","-1");
-            listbox.setAttribute("tabIndex","-1");
-            document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabIndex","-1"));
-            document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabIndex","-1"));
-            btnContactButton.setAttribute("tabIndex","-1");
-        } else {
-            logoLink.setAttribute("tabIndex","0");
-            listbox.setAttribute("tabIndex","0");
-            document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabIndex","0"));
-            document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabIndex","0"));
-            btnContactButton.setAttribute("tabIndex","0");
-        }
+            document.querySelectorAll(".media-image").forEach(elem => elem.removeAttribute("tabindex"));
+            document.querySelectorAll(".fa-heart").forEach(elem => elem.removeAttribute("tabindex"));
+        } 
+
         if(event.target.className.includes("select")){
             chooseSelect(event);
+            logoLink.setAttribute("tabindex","0");
+            btnContactButton.setAttribute("tabindex","0");
+            listbox.setAttribute("tabindex","0");
+
         }
+/*********************************************************************************************/
+/***Accessibility Modal**************************************************************/
+
         if(event.target.className === "contact_button") {
-            alert ("dct")
+            alert ("detect")
             main.setAttribute("aria-hidden" , "false");
+            document.getElementById("logo-link").setAttribute("tabindex","-1");
+
+            // add tabindex0 on button close to be selectable
+            btnCloseModal.setAttribute("tabindex","0");
             
-            // add tabIndex0 on button close to be selectable
-            btnCloseModal.setAttribute("tabIndex","0");
-            
-            // //add tabIndex-1 on buttons&links out modal
-            logoLink.setAttribute("tabIndex","-1");
-            listbox.setAttribute("tabIndex","-1");
-            document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabIndex","-1"));
-            document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabIndex","-1"));
-            btnContactButton.setAttribute("tabIndex","-1");
+            // add tabindex-1 on buttons&links out modal
+            // document.getElementById("logo-link").setAttribute("tabindex","-1");
+            btnContactButton.setAttribute("tabindex","-1");
+
+            listbox.setAttribute("tabindex","-1");
+            document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabindex","-1"));
+            document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabindex","-1"));
         }
 
         if(event.target.className === "close"){
@@ -464,13 +501,21 @@ document.addEventListener("keydown", (event)=>{
             modal.style.display="none";
 
             // button and link accessible on main
-            logoLink.setAttribute("tabIndex","0");
-            listbox.setAttribute("tabIndex","0");
-            document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabIndex","0"));
-            document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabIndex","0"));
-            document.querySelector(".contact_button").setAttribute("tabIndex","0");
-            document.querySelector(".close").removeAttribute("tabIndex","-1");
-        }     
+            logoLink.setAttribute("tabindex","0");
+            listbox.setAttribute("tabindex","0");
+            document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabindex","0"));
+            document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabindex","0"));
+            document.querySelector(".contact_button").setAttribute("tabindex","0");
+            document.querySelector(".close").removeAttribute("tabindex","-1");
+        }
+        if(event.target.className === "btnclose"){
+            logoLink.setAttribute("tabindex","0");
+            listbox.setAttribute("tabindex","0");
+            document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabindex","0"));
+            document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabindex","0"));
+            document.querySelector(".contact_button").setAttribute("tabindex","0");
+        }
+        
     }
 })
 

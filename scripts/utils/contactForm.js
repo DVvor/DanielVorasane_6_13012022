@@ -2,7 +2,9 @@
 function displayModal() {
     const modal = document.getElementById("contact_modal");
 	  modal.style.display = "block";
-    
+
+    document.getElementById("logo-link").setAttribute("tabindex","-1");
+
 }
 
 function closeModal() {
