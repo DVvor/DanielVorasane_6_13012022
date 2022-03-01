@@ -13,7 +13,6 @@ function mediaFactory(media, photographerName) {
     function getMediaCardDOM() {
         const cardmedia = document.createElement("div");
         cardmedia.classList.add('card-media');
-        cardmedia.setAttribute("tabindex", "0");
         
         const cardmediatitle = document.createElement('div');
         cardmediatitle.classList.add('card-media-title');
@@ -31,26 +30,31 @@ function mediaFactory(media, photographerName) {
         const heart = document.createElement('i');
         heart.classList.add('fas','fa-heart');
         heart.setAttribute("aria-label", "likes");
+        heart.setAttribute("tabindex", "0");
 
 // Choose type of media if its image or video
         if ('image' in media ) {
             const img = document.createElement('img');
             img.setAttribute("src", picture);
-            img.setAttribute("alt", title)
-            img.setAttribute("role", "image link")
+            img.setAttribute("alt", title);
+            img.setAttribute("role", "image link");
+            img.classList.add("media-image");
+            img.setAttribute("tabindex", "0");
+
             
 
             cardmedia.appendChild(img);
         } else if( 'video' in media) {
             const video = document.createElement('video');
-            video.setAttribute("controls", "controls");
             video.setAttribute("src", picture);
-            video.setAttribute("alt", title)
-            video.setAttribute("role", "video link")
+            video.setAttribute("alt", title);
+            video.setAttribute("role", "video link");
+            video.classList.add("media-image");
+            video.setAttribute("tabindex", "0");
+
 
             cardmedia.appendChild(video);
         }
-        
 
 
 // add like when click on icon
@@ -66,6 +70,12 @@ function mediaFactory(media, photographerName) {
 
     } 
     heart.addEventListener("click", addLikeUpdate);
+
+    heart.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            addLikeUpdate()
+        }
+    })
 
     cardmedia.appendChild(cardmediatitle);
     cardmediatitle.appendChild(h2);

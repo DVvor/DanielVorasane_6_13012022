@@ -84,10 +84,10 @@ main {
     border-radius: 5px;
     background-color: #DB8876;
     width: 35%;
-    height: 930px;
+    height: 900px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
     padding: 35px;
     margin: auto;
@@ -213,6 +213,7 @@ color: white;
     width: 350px;
     height: 350px;
     background-color: white;
+    position: relative;
 }
 
 .card-media {

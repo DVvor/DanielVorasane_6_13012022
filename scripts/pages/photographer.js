@@ -8,12 +8,15 @@ let selectTwo = document.querySelector('.select-two');
 let selectThree = document.querySelector('.select-three');
 let arrow = document.querySelector('.fa-angle-up');
 const listbox = document.querySelector('.dropdown');
+let heart = document.querySelectorAll("fa-heart");
+const modal = document.getElementById("contact_modal");
 
 
 const mediasection = document.createElement("div");
     mediasection.classList.add('medias-section');
 
 let mediasPhotographer = [];
+let totalLike = mediasPhotographer.likes;
 let dataPhotographer = [];
 let photographerName = "";
 
@@ -88,8 +91,6 @@ async function displayDataPhotographer() {
     dataPhotographer = await photographerfound();
     photographerName = dataPhotographer.name;
 
-    // console.log(dataPhotographer)
-
     const photographerData = photographerFactory(dataPhotographer);
     const userCardDOM = photographerData.getDataPhotographer();
 
@@ -127,8 +128,9 @@ async function mediadisplay() {
 
     main.appendChild(mediasection);
 
-    document.querySelectorAll('.card-media').forEach(item => {
+    document.querySelectorAll('.media-image').forEach(item => {
         item.addEventListener('click', lightbox)
+
     })
 
 }
@@ -142,6 +144,8 @@ function init() {
 
 init(); 
 
+
+
 /* Sort medias by  */
 function sortmedia() {
 
@@ -150,7 +154,7 @@ function sortmedia() {
 
 
     if (select.textContent == "Popularité") {
-        mediasPhotographer.sort((a,b) => a.likes - b.likes);    
+        mediasPhotographer.sort((a,b) => a.likes - b.likes); 
     } 
     if (select.textContent == "Date") {
         mediasPhotographer.sort((a, b) => a.date.localeCompare(b.date));
@@ -182,11 +186,12 @@ function lightbox(event){
     const content = document.createElement("div");
         content.classList.add('lightbox');
         content.setAttribute('role', 'dialog');
-    
+
     currentSource = event.target.getAttribute('src')
+
     // const currentMedia = mediasPhotographer.filter(media => currentSource.includes(media.image || media.video ));
     let currentMediaIndex = mediasPhotographer.findIndex(media => currentSource.includes(media.image || media.video ));
-
+    
     let mediaToDisplay = mediasPhotographer[currentMediaIndex]
     
     if (mediaToDisplay.hasOwnProperty('video')) {
@@ -246,7 +251,6 @@ function lightbox(event){
         if (currentMediaIndex == mediasPhotographer.length) {
             currentMediaIndex = 0;
         }
-        console.log(mediasPhotographer.length,currentMediaIndex)
 
         let nextMediaToDisplay = mediasPhotographer[currentMediaIndex]
 
@@ -259,7 +263,6 @@ function lightbox(event){
 
         const source = `assets/SamplePhotos/${photographerName}/${nextMediaToDisplay.image || nextMediaToDisplay.video}`;
 
-        console.log(nextMediaToDisplay)
         if (nextMediaToDisplay.hasOwnProperty('video')) {
             const mediaLargeSize = document.createElement("video");
             mediaLargeSize.classList.add('media-large');
@@ -289,7 +292,6 @@ function lightbox(event){
         if (currentMediaIndex < 0) {
             currentMediaIndex = mediasPhotographer.length - 1;
         }
-        console.log(mediasPhotographer.length,currentMediaIndex)
 
         let previousMediaToDisplay = mediasPhotographer[currentMediaIndex]
 
@@ -302,7 +304,6 @@ function lightbox(event){
 
         const source = `assets/SamplePhotos/${photographerName}/${previousMediaToDisplay.image || previousMediaToDisplay.video}`;
 
-        console.log(previousMediaToDisplay)
         if (previousMediaToDisplay.hasOwnProperty('video')) {
             const mediaLargeSize = document.createElement("video");
             mediaLargeSize.classList.add('media-large');
@@ -371,6 +372,7 @@ function closeDropdown(event) {
 
     }
 
+
 }
 selected.addEventListener("click", openDropdown)
 document.addEventListener("click", closeDropdown)
@@ -394,6 +396,9 @@ function chooseSelect(event) {
     }
     selectTwo.style.display = 'none';
     selectThree.style.display = 'none';
+    selected.removeAttribute("tabindex", "0");
+    selectTwo.removeAttribute("tabindex", "0");
+    selectThree.removeAttribute("tabindex", "0");
 
     selected.style.borderRadius = '5px';
     const arrowUp = document.createElement("i");
@@ -404,4 +409,61 @@ function chooseSelect(event) {
 }
 selectTwo.addEventListener("click", chooseSelect)
 selectThree.addEventListener("click", chooseSelect)
+
+
+/* DOM */
+
+const logoLink = document.querySelector(".logo-link");
+const mediaImage = document.querySelectorAll(".media-image");
+const btnCloseModal = document.querySelector(".close");
+const btnContactButton = document.querySelector(".contact_button");
+/* Focus accessibilty */
+document.addEventListener("keydown", (event)=>{
+    // console.log(modal)
+
+    if(event.key === "Enter"){
+
+        if(event.target.className === "media-image"){
+            lightbox(event);
+        }
+        if(event.target.className === "dropdown"){
+            // alert ("detect")
+            openDropdown(event);
+        }
+        if(event.target.className.includes("select")){
+            chooseSelect(event);
+        }
+        if(modal.style.display="block") {
+            alert ("dectect")
+            main.setAttribute("aria-hidden" , "false");
+            
+            // add tabIndex0 on button close to be selected
+            btnCloseModal.setAttribute("tabIndex","0");
+            
+            // //add tabIndex-1 on buttons out modal
+            logoLink.setAttribute("tabIndex","-1");
+            listbox.setAttribute("tabIndex","-1");
+            document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabIndex","-1"));
+            document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabIndex","-1"));
+            btnContactButton.setAttribute("tabIndex","-1");
+            document.getElementById("firstname");
+        }
+
+        // if(modal.style.display = "none"){
+        //     alert("detect")
+        //     // modal.style.display = "none";
+        //     document.querySelector(".close").removeAttribute("tabIndex","0");
+
+        //     main.setAttribute("aria-hidden" , "true");
+        //     document.querySelector(".logo-link").setAttribute("tabIndex","0");
+        //     document.querySelector(".logo").setAttribute("tabIndex","0");
+        //     listbox.setAttribute("tabIndex","0");
+        //     document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabIndex","0"));
+        //     document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabIndex","0"));
+        //     document.querySelector(".contact_button").setAttribute("tabIndex","0");
+
+        // }
+        
+    }
+})
 

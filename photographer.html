@@ -11,7 +11,7 @@
   </head>
   <body>
     <header role="banner">
-      <a href="index.html">
+      <a href="index.html" class="logo-link">
         <img src="assets/images/logo.png" class="logo" alt="Fisheye Home page"/>
       </a>
     </header>
@@ -22,8 +22,8 @@
 
       <div class="dropdown-bar">
         <p class="dropdown-label" aria-label="trier par">Trier par</p>
-        <div class="dropdown" aria-haspopup="listbox" aria-expanded="false">
-          <div class="select select-selected" role="button">Popularité<i class="arrow fas fa-angle-up"></i></div>
+        <div class="dropdown" aria-haspopup="listbox" aria-expanded="false" tabindex="0">
+          <div class="select select-selected" role="button" id="selected" >Popularité<i class="arrow fas fa-angle-up"></i></div>
           <div class="select select-two">Date</div>
           <div class="select select-three">Titre</div>
         </div>

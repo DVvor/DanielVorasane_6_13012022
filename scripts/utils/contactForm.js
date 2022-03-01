@@ -40,77 +40,100 @@ function firstnameInputIsValid() {
       if (value.length < 2 || regex.test(value) == false) {
         formData[0].setAttribute("data-error-visible","true"); // formData[0] cible le premier element formData de HTML
         formData[0].setAttribute("data-error","Le prénom doit contenir au moins 2 lettres (sans caractères spéciaux).");
+        formData[0].style.margin = "0px";
         isFirstnameValid = false;
     } else {
         formData[0].setAttribute("data-error-visible","false");
         formData[0].removeAttribute("data-error");
+        formData[0].style.margin = "0px 0px 26px 0px";
       isFirstnameValid = true;
     }
   }
   formData[0].addEventListener("input", firstnameInputIsValid); // input = est déclenché de façon synchrone
   
 /*(2) Le champ du nom de famille a un minimum de 2 caractères / n'est pas vide */
-  let isLastnameValid = false;
-  
-  function lastNameInputIsValid() {
-    // resetGlobalErrorMessage();
-  
-    let regex = /^[A-Za-zÀ-ÿ\ ]+$/;
-    let value = lastNameInput.value.trim(); 
-      if (value.length < 2 || regex.test(value) == false) {
-        formData[1].setAttribute("data-error-visible","true");
-        formData[1].setAttribute("data-error","Le nom doit contenir au moins 2 lettres (sans caractères spéciaux).");
-        isLastnameValid = false;
-        // return false;
-    } else {
-      formData[1].setAttribute("data-error-visible","false");
-      formData[1].removeAttribute("data-error");
-      isLastnameValid = true;
-      // return true;
-    }
+let isLastnameValid = false;
+
+function lastNameInputIsValid() {
+  // resetGlobalErrorMessage();
+
+  let regex = /^[A-Za-zÀ-ÿ\ ]+$/;
+  let value = lastNameInput.value.trim(); 
+    if (value.length < 2 || regex.test(value) == false) {
+      formData[1].setAttribute("data-error-visible","true");
+      formData[1].setAttribute("data-error","Le nom doit contenir au moins 2 lettres (sans caractères spéciaux).");
+      formData[1].style.margin = "0px";
+      isLastnameValid = false;
+      // return false;
+  } else {
+    formData[1].setAttribute("data-error-visible","false");
+    formData[1].removeAttribute("data-error");
+    formData[1].style.margin = "0px 0px 26px 0px";
+    isLastnameValid = true;
+    // return true;
   }
-  formData[1].addEventListener("input", lastNameInputIsValid); 
-  
+}
+formData[1].addEventListener("input", lastNameInputIsValid); 
+
 /* (3) L'adresse électronique est valide ********************************************/
-  let isEmailValid = false;
-  
-  
-  function emailInputIsValid() {
-    // resetGlobalErrorMessage();
-  
-    let regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-      if (regex.test(emailInput.value) == false) {
-        formData[2].setAttribute("data-error-visible","true");
-        formData[2].setAttribute("data-error","Veuillez indiquer un email valide.");
-        isEmailValid = false;
-    } else {
-        formData[2].setAttribute("data-error-visible","false");
-        formData[2].removeAttribute("data-error");
-        isEmailValid = true;
-    }
+let isEmailValid = false;
+
+
+function emailInputIsValid() {
+  // resetGlobalErrorMessage();
+
+  let regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (regex.test(emailInput.value) == false) {
+      formData[2].setAttribute("data-error-visible","true");
+      formData[2].setAttribute("data-error","Veuillez indiquer un email valide.");
+      formData[2].style.margin = "0px";
+      isEmailValid = false;
+  } else {
+      formData[2].setAttribute("data-error-visible","false");
+      formData[2].removeAttribute("data-error");
+      formData[2].style.margin = "0px 0px 26px 0px";
+      isEmailValid = true;
   }
-  formData[2].addEventListener("input", emailInputIsValid);
+}
+formData[2].addEventListener("input", emailInputIsValid);
 
-
-  function validate(event) {
-    event.preventDefault();
-    firstnameInputIsValid();
-    lastNameInputIsValid();
-    emailInputIsValid();
-    
-    
-    if  (isFirstnameValid &&
-        isLastnameValid &&
-        isEmailValid)
-    {
-        console.log(`Prénom: ${firstNameInput.value}`);
-        console.log(`Nom: ${lastNameInput.value}`);
-        console.log(`E-mail: ${emailInput.value}`);
-        console.log(`Votre message: ${messageInput.value}`);
-
-        form.reset();
-        closeModal();
-        modalMessageSent.style.display = "block";
+function messageInputIsValid() {
+  console.log(messageInput.textContent)
+  if(messageInput.value == "") {
+    formData[3].setAttribute("data-error-visible","true");
+    formData[3].setAttribute("data-error","Veuillez remplir ce champ.")
+    formData[3].style.margin = "0px";
+  } else {
+    formData[3].setAttribute("data-error-visible","false");
+    formData[3].removeAttribute("data-error");
+    formData[3].style.margin = "0px 0px 26px 0px";
+    isMessageValid = true;
     }
-  } 
+}
+formData[3].addEventListener("input", messageInputIsValid);
+
+
+function validate(event) {
+  event.preventDefault();
+  firstnameInputIsValid();
+  lastNameInputIsValid();
+  emailInputIsValid();
+  messageInputIsValid()
+  
+  
+  if  (isFirstnameValid &&
+      isLastnameValid &&
+      isEmailValid &&
+      isMessageValid){
+  
+      console.log(`Prénom: ${firstNameInput.value}`);
+      console.log(`Nom: ${lastNameInput.value}`);
+      console.log(`E-mail: ${emailInput.value}`);
+      console.log(`Votre message: ${messageInput.value}`);
+
+      form.reset();
+      closeModal();
+      modalMessageSent.style.display = "block";
+  }
+} 
 
