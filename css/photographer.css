@@ -87,7 +87,7 @@ main {
     height: 900px;
     display: flex;
     flex-direction: column;
-    /* justify-content: space-between; */
+    justify-content: space-between;
     align-items: center;
     padding: 35px;
     margin: auto;
@@ -303,7 +303,7 @@ h2 {
     display: flex;
     align-items: center;
 }
-.select:hover {
+.select:hover, .select:focus {
     background-color: #DB8876;
     color: #000000;
 }

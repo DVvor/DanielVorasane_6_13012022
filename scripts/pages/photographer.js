@@ -417,9 +417,9 @@ const logoLink = document.querySelector(".logo-link");
 const mediaImage = document.querySelectorAll(".media-image");
 const btnCloseModal = document.querySelector(".close");
 const btnContactButton = document.querySelector(".contact_button");
+
 /* Focus accessibilty */
 document.addEventListener("keydown", (event)=>{
-    // console.log(modal)
 
     if(event.key === "Enter"){
 
@@ -427,43 +427,50 @@ document.addEventListener("keydown", (event)=>{
             lightbox(event);
         }
         if(event.target.className === "dropdown"){
-            // alert ("detect")
             openDropdown(event);
-        }
-        if(event.target.className.includes("select")){
-            chooseSelect(event);
-        }
-        if(modal.style.display="block") {
-            alert ("dectect")
-            main.setAttribute("aria-hidden" , "false");
-            
-            // add tabIndex0 on button close to be selected
-            btnCloseModal.setAttribute("tabIndex","0");
-            
-            // //add tabIndex-1 on buttons out modal
             logoLink.setAttribute("tabIndex","-1");
             listbox.setAttribute("tabIndex","-1");
             document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabIndex","-1"));
             document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabIndex","-1"));
             btnContactButton.setAttribute("tabIndex","-1");
-            document.getElementById("firstname");
+        } else {
+            logoLink.setAttribute("tabIndex","0");
+            listbox.setAttribute("tabIndex","0");
+            document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabIndex","0"));
+            document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabIndex","0"));
+            btnContactButton.setAttribute("tabIndex","0");
+        }
+        if(event.target.className.includes("select")){
+            chooseSelect(event);
+        }
+        if(event.target.className === "contact_button") {
+            alert ("dct")
+            main.setAttribute("aria-hidden" , "false");
+            
+            // add tabIndex0 on button close to be selectable
+            btnCloseModal.setAttribute("tabIndex","0");
+            
+            // //add tabIndex-1 on buttons&links out modal
+            logoLink.setAttribute("tabIndex","-1");
+            listbox.setAttribute("tabIndex","-1");
+            document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabIndex","-1"));
+            document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabIndex","-1"));
+            btnContactButton.setAttribute("tabIndex","-1");
         }
 
-        // if(modal.style.display = "none"){
-        //     alert("detect")
-        //     // modal.style.display = "none";
-        //     document.querySelector(".close").removeAttribute("tabIndex","0");
+        if(event.target.className === "close"){
+            // alert("detect")
+            main.setAttribute("aria-hidden" , "true");
+            modal.style.display="none";
 
-        //     main.setAttribute("aria-hidden" , "true");
-        //     document.querySelector(".logo-link").setAttribute("tabIndex","0");
-        //     document.querySelector(".logo").setAttribute("tabIndex","0");
-        //     listbox.setAttribute("tabIndex","0");
-        //     document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabIndex","0"));
-        //     document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabIndex","0"));
-        //     document.querySelector(".contact_button").setAttribute("tabIndex","0");
-
-        // }
-        
+            // button and link accessible on main
+            logoLink.setAttribute("tabIndex","0");
+            listbox.setAttribute("tabIndex","0");
+            document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabIndex","0"));
+            document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabIndex","0"));
+            document.querySelector(".contact_button").setAttribute("tabIndex","0");
+            document.querySelector(".close").removeAttribute("tabIndex","-1");
+        }     
     }
 })
 
