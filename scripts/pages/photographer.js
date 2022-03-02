@@ -242,6 +242,13 @@ function lightbox(event){
         content.appendChild(previous);
         content.appendChild(iconeClose);
 
+    main.setAttribute("aria-hidden" , "false");
+    listbox.setAttribute("tabindex","-1");
+    btnContactButton.setAttribute("tabindex","-1");
+    logoLink.setAttribute("tabindex","-1");
+    // document.getElementById("selected").setAttribute("tabindex","-1");
+    document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabindex", "-1"));
+    document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabindex", "-1"));
 }
 
 function nextmedia() {
@@ -341,6 +348,13 @@ function closeLightbox() {
     const content = document.querySelector('.lightbox');
     main.removeChild(content)
 
+    main.setAttribute("aria-hidden" , "true");
+    listbox.setAttribute("tabindex","0");
+    btnContactButton.setAttribute("tabindex","0");
+    logoLink.setAttribute("tabindex","0");
+    // document.getElementById("selected").setAttribute("tabindex","-1");
+    document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabindex", "0"));
+    document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabindex", "0"));
 }
 
 
@@ -437,12 +451,16 @@ document.addEventListener("keydown", (event)=>{
 /***Accessibility lightbox*********************************************************************/
 
         if(event.target.className === "media-image"){
-            main.setAttribute("aria-hidden" , "false");
-            mediasSection.style.display="none";
-            listbox.style.display="none";
-            btnContactButton.style.display="none";
-            logoLink.style.display="none";
             lightbox(event);
+
+            // main.setAttribute("aria-hidden" , "false");
+            // listbox.setAttribute("tabindex","-1");
+            // btnContactButton.setAttribute("tabindex","-1");
+            // logoLink.setAttribute("tabindex","-1");
+            // document.getElementById("selected").setAttribute("tabindex","-1");
+            // document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabindex", "-1"));
+            // document.querySelectorAll(".fa-heart").forEach(elem => elem.removeAttribute("tabindex", "-1"));
+
         } 
         if (event.target.className.includes("icone-close-lightbox")){
             closeLightbox()
@@ -478,22 +496,10 @@ document.addEventListener("keydown", (event)=>{
 /*********************************************************************************************/
 /***Accessibility Modal**************************************************************/
 
-        if(event.target.className === "contact_button") {
-            alert ("detect")
-            main.setAttribute("aria-hidden" , "false");
-            document.getElementById("logo-link").setAttribute("tabindex","-1");
-
-            // add tabindex0 on button close to be selectable
-            btnCloseModal.setAttribute("tabindex","0");
+        // if(event.target.className === "contact_button") {
             
-            // add tabindex-1 on buttons&links out modal
-            // document.getElementById("logo-link").setAttribute("tabindex","-1");
-            btnContactButton.setAttribute("tabindex","-1");
 
-            listbox.setAttribute("tabindex","-1");
-            document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabindex","-1"));
-            document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabindex","-1"));
-        }
+        // }
 
         if(event.target.className === "close"){
             // alert("detect")
@@ -515,6 +521,11 @@ document.addEventListener("keydown", (event)=>{
             document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabindex","0"));
             document.querySelector(".contact_button").setAttribute("tabindex","0");
         }
-        
+    }
+
+    if(event.key === "Escape") {
+        closeModal();
+        closeDropdown(event);
+        closeLightbox();
     }
 })

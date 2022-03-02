@@ -3,13 +3,37 @@ function displayModal() {
     const modal = document.getElementById("contact_modal");
 	  modal.style.display = "block";
 
+    // add tabindex0 on button close to be selectable
+    btnCloseModal.setAttribute("tabindex","0");
+
+    // alert ("detect")
+    main.setAttribute("aria-hidden" , "false");
+    
+    // add tabindex-1 on buttons&links out modal
+    // document.getElementById("logo-link").setAttribute("tabindex","-1");
+    btnContactButton.setAttribute("tabindex","-1");
     document.getElementById("logo-link").setAttribute("tabindex","-1");
+    listbox.setAttribute("tabindex","-1");
+    document.getElementById("selected").setAttribute("tabindex","-1");
+    document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabindex","-1"));
+    document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabindex","-1"));
 
 }
 
 function closeModal() {
     const modal = document.getElementById("contact_modal");
     modal.style.display = "none";
+
+    main.setAttribute("aria-hidden" , "true");
+    
+    // add tabindex-1 on buttons&links out modal
+    // document.getElementById("logo-link").setAttribute("tabindex","-1");
+    btnContactButton.removeAttribute("tabindex");
+    document.getElementById("logo-link").setAttribute("tabindex","0");
+    listbox.setAttribute("tabindex","-1");
+    document.getElementById("selected").setAttribute("tabindex","0");
+    document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabindex","0"));
+    document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabindex","0"));
 }
 
 //Message validation form
