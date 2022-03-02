@@ -184,7 +184,7 @@ function lightbox(event){
     currentSource = event.target.getAttribute('src')
     // const currentMedia = mediasPhotographer.filter(media => currentSource.includes(media.image || media.video ));
     let currentMediaIndex = mediasPhotographer.findIndex(media => currentSource.includes(media.image || media.video ));
-    let mediaToDisplay = mediasPhotographer[currentMediaIndex]
+    let mediaToDisplay = mediasPhotographer[currentMediaIndex];
     if (mediaToDisplay.hasOwnProperty('video')) {
         const mediaLargeSize = document.createElement("video");
         mediaLargeSize.classList.add('media-large');
@@ -346,7 +346,10 @@ function previousmedia() {
 
 function closeLightbox() {        
     const content = document.querySelector('.lightbox');
-    main.removeChild(content)
+
+    if(main.contains(content)){
+        main.removeChild(content);
+    }
 
     main.setAttribute("aria-hidden" , "true");
     listbox.setAttribute("tabindex","0");
@@ -373,35 +376,37 @@ function openDropdown() {
     selectTwo.setAttribute("tabindex", "0");
     selectThree.setAttribute("tabindex", "0");
 
-    logoLink.setAttribute("tabindex","-1");
+    document.getElementById("logo-link").setAttribute("tabindex","-1");
     listbox.setAttribute("tabindex","-1");
-    document.querySelectorAll(".media-image").forEach(elem => elem.removeAttribute("tabindex"));
-    document.querySelectorAll(".fa-heart").forEach(elem => elem.removeAttribute("tabindex"));
+    document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabindex","-1"));
+    document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabindex","-1"));
     btnContactButton.setAttribute("tabindex","-1");
 
+    document.addEventListener("click", closeDropdown);
 }
+listbox.addEventListener("click", openDropdown);
+
 
 function closeDropdown(event) {
-
     const arrowUp = document.querySelector('.fa-angle-up')
     const arrowDown = document.querySelector('.fa-angle-down')
     
-
-    if(event.target != selected && event.target != arrowDown && event.target != arrowUp) {
+    if (event.target != selected && event.target != arrowDown && event.target != arrowUp) {
         selectTwo.style.display = 'none';
         selectThree.style.display = 'none';
         selected.style.borderRadius = '5px';
-        listbox.setAttribute("aria-expanded","false");
 
+        listbox.setAttribute("aria-expanded","false");
+        logoLink.setAttribute("tabindex","0");
+        listbox.setAttribute("tabindex","0");
+        selected.setAttribute("tabindex","-1");
+        document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabindex","0"));
+        document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabindex","0"));
+        btnContactButton.setAttribute("tabindex","0");
+
+        // document.removeEventListener("click", closeDropdown);
     }
-    logoLink.setAttribute("tabindex","0");
-    listbox.setAttribute("tabindex","0");
-    document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabindex","0"));
-    document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabindex","0"));
-    btnContactButton.setAttribute("tabindex","0");
 }
-selected.addEventListener("click", openDropdown)
-// document.addEventListener("click", closeDropdown)
 
 function chooseSelect(event) {
 
@@ -426,6 +431,10 @@ function chooseSelect(event) {
     selectTwo.removeAttribute("tabindex", "0");
     selectThree.removeAttribute("tabindex", "0");
 
+    logoLink.setAttribute("tabindex","0");
+    btnContactButton.setAttribute("tabindex","0");
+    listbox.setAttribute("tabindex","0");
+
     selected.style.borderRadius = '5px';
     const arrowUp = document.createElement("i");
     arrowUp.classList.add("arrow","fas","fa-angle-up");
@@ -444,6 +453,7 @@ const btnCloseModal = document.querySelector(".close");
 const btnContactButton = document.querySelector(".contact_button");
 
 /* Focus accessibilty */
+
 document.addEventListener("keydown", (event)=>{
 
     if(event.key === "Enter"){
@@ -453,27 +463,19 @@ document.addEventListener("keydown", (event)=>{
         if(event.target.className === "media-image"){
             lightbox(event);
 
-            // main.setAttribute("aria-hidden" , "false");
-            // listbox.setAttribute("tabindex","-1");
-            // btnContactButton.setAttribute("tabindex","-1");
-            // logoLink.setAttribute("tabindex","-1");
-            // document.getElementById("selected").setAttribute("tabindex","-1");
-            // document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabindex", "-1"));
-            // document.querySelectorAll(".fa-heart").forEach(elem => elem.removeAttribute("tabindex", "-1"));
+        }
 
-        } 
         if (event.target.className.includes("icone-close-lightbox")){
-            closeLightbox()
-            mediasSection.style.display="grid";
-            listbox.style.display="block";
-            btnContactButton.style.display="block";
-            logoLink.style.display="block";
+            closeLightbox();
+
         }
+
         if(event.target.className === "fas fa-chevron-right"){
-            nextmedia()
+            nextmedia();
         }
+
         if(event.target.className === "fas fa-chevron-left"){
-            previousmedia()
+            previousmedia();
         }
 
 /**********************************************************************************************/
@@ -482,44 +484,25 @@ document.addEventListener("keydown", (event)=>{
 
         if(event.target.className === "dropdown"){
             openDropdown(event);
-            document.querySelectorAll(".media-image").forEach(elem => elem.removeAttribute("tabindex"));
-            document.querySelectorAll(".fa-heart").forEach(elem => elem.removeAttribute("tabindex"));
+
         } 
 
         if(event.target.className.includes("select")){
             chooseSelect(event);
-            logoLink.setAttribute("tabindex","0");
-            btnContactButton.setAttribute("tabindex","0");
-            listbox.setAttribute("tabindex","0");
 
         }
 /*********************************************************************************************/
 /***Accessibility Modal**************************************************************/
-
-        // if(event.target.className === "contact_button") {
-            
-
-        // }
-
+        // close modal
         if(event.target.className === "close"){
-            // alert("detect")
-            main.setAttribute("aria-hidden" , "true");
-            modal.style.display="none";
+            closeModal();
 
-            // button and link accessible on main
-            logoLink.setAttribute("tabindex","0");
-            listbox.setAttribute("tabindex","0");
-            document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabindex","0"));
-            document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabindex","0"));
-            document.querySelector(".contact_button").setAttribute("tabindex","0");
-            document.querySelector(".close").removeAttribute("tabindex","-1");
         }
+
+        // button close message sent
         if(event.target.className === "btnclose"){
-            logoLink.setAttribute("tabindex","0");
-            listbox.setAttribute("tabindex","0");
-            document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabindex","0"));
-            document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabindex","0"));
-            document.querySelector(".contact_button").setAttribute("tabindex","0");
+            closeModalMessageSent()
+
         }
     }
 
@@ -528,4 +511,5 @@ document.addEventListener("keydown", (event)=>{
         closeDropdown(event);
         closeLightbox();
     }
+    
 })

@@ -40,6 +40,12 @@ function closeModal() {
 //close modal message sent
 function closeModalMessageSent() {
     modalMessageSent.style.display = "none";
+
+    logoLink.setAttribute("tabindex","0");
+    listbox.setAttribute("tabindex","0");
+    document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabindex","0"));
+    document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabindex","0"));
+    document.querySelector(".contact_button").setAttribute("tabindex","0");
 }
 
 //DOM Elements
@@ -165,6 +171,14 @@ function validate(event) {
       form.reset();
       closeModal();
       modalMessageSent.style.display = "block";
+
+    document.getElementById("logo-link").setAttribute("tabindex","-1");
+    listbox.setAttribute("tabindex","-1");
+    selected.setAttribute("tabindex","-1");
+    document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabindex","-1"));
+    document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabindex","-1"));
+    btnContactButton.setAttribute("tabindex","-1");
+
   }
 } 
 
