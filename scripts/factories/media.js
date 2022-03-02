@@ -88,7 +88,3 @@ function mediaFactory(media, photographerName) {
 
     return { getMediaCardDOM }
 }
-
-
-
-

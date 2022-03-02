@@ -99,12 +99,17 @@ function emailInputIsValid() {
 }
 formData[2].addEventListener("input", emailInputIsValid);
 
+/* (4) Le champs message est requis ********************************************/
+
+let isMessageValid = false;
+
 function messageInputIsValid() {
-  console.log(messageInput.textContent)
+
   if(messageInput.value == "") {
     formData[3].setAttribute("data-error-visible","true");
     formData[3].setAttribute("data-error","Veuillez remplir ce champ.")
     formData[3].style.margin = "0px";
+    isMessageValid = false
   } else {
     formData[3].setAttribute("data-error-visible","false");
     formData[3].removeAttribute("data-error");
