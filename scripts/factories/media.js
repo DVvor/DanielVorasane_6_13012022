@@ -56,27 +56,6 @@ function mediaFactory(media, photographerName) {
             cardmedia.appendChild(video);
         }
 
-
-// add like when click on icon
-// counter likes on each media   
-
-        
-    function addLikeUpdate(){
-        totalLike += 1; 
-        nbLikes.textContent = totalLike;
-        
-        const sumLikescurrent = document.querySelector(".sum-likes");
-        sumLikescurrent.textContent = parseInt(sumLikescurrent.textContent) + 1;
-
-    } 
-    heart.addEventListener("click", addLikeUpdate);
-
-    heart.addEventListener("keydown", (event) => {
-        if (event.key === "Enter") {
-            addLikeUpdate()
-        }
-    })
-
     cardmedia.appendChild(cardmediatitle);
     cardmediatitle.appendChild(h2);
     cardmediatitle.appendChild(counterlikes);

@@ -2,13 +2,12 @@
 const photographerId = getParameterId();
 const mainPagePhotographer = document.querySelector(".photograph-header")
 const main = document.querySelector("main");
-let select = document.querySelector(".select-selected");
 let selected = document.querySelector('.select-selected');
 let selectTwo = document.querySelector('.select-two');
 let selectThree = document.querySelector('.select-three');
 let arrow = document.querySelector('.fa-angle-up');
 const listbox = document.querySelector('.dropdown');
-let heart = document.querySelectorAll("fa-heart");
+// let heart = document.querySelectorAll("fa-heart");
 const modal = document.getElementById("contact_modal");
 
 
@@ -16,7 +15,8 @@ const mediasSection = document.createElement("div");
     mediasSection.classList.add('medias-section');
 
 let mediasPhotographer = [];
-let totalLike = mediasPhotographer.likes;
+// let totalLike = mediasPhotographer.likes;
+// console.log(totalLike)
 let dataPhotographer = [];
 let photographerName = "";
 
@@ -125,21 +125,34 @@ async function mediadisplay() {
     main.appendChild(mediasSection);
 
     document.querySelectorAll('.media-image').forEach(item => {
-        item.addEventListener('click', lightbox)
-
+        item.addEventListener('click', lightbox)})
+    
+    document.querySelectorAll('.fa-heart').forEach(item => {
+        item.addEventListener('click', addLikeUpdate)
     })
-
 }
+
+
 
 
 function init() {
     displayDataPhotographer();
     mediadisplay();
-
 };
 init(); 
 
 
+
+// add like when click on icon
+// counter likes on each media   
+function addLikeUpdate(event){
+    let mediaLike = event.target.parentNode.querySelector(".nblikes");
+    let totalLike = document.querySelector(".sum-likes");
+
+    mediaLike.textContent = parseInt(mediaLike.textContent) + 1;
+    totalLike.textContent = parseInt(totalLike.textContent) + 1;
+
+} 
 
 /* Sort medias by  */
 function sortmedia() {
@@ -148,13 +161,13 @@ function sortmedia() {
     const mediaSection = document.querySelector(".medias-section");
 
 
-    if (select.textContent == "Popularité") {
+    if (selected.textContent == "Popularité") {
         mediasPhotographer.sort((a,b) => a.likes - b.likes); 
     } 
-    if (select.textContent == "Date") {
+    if (selected.textContent == "Date") {
         mediasPhotographer.sort((a, b) => a.date.localeCompare(b.date));
     }
-    if (select.textContent == "Titre") {
+    if (selected.textContent == "Titre") {
         mediasPhotographer.sort((a, b) => a.title.localeCompare(b.title));
     }
 
@@ -170,7 +183,7 @@ function sortmedia() {
 
     document.querySelectorAll('.card-media').forEach(item => {
         item.addEventListener('click', lightbox)
-    })
+    });
 
 }
 
@@ -383,15 +396,31 @@ function openDropdown() {
     btnContactButton.setAttribute("tabindex","-1");
 
     document.addEventListener("click", closeDropdown);
+    document.addEventListener("keydown", closeDropdown);
+
+    document.querySelector(".contact_button").removeAttribute("onclick");
+    
+    document.querySelectorAll('.media-image').forEach(item => {
+        item.removeEventListener('click', lightbox)
+    })
+    
+    document.querySelectorAll('.fa-heart').forEach(item => {
+        item.removeEventListener('click', addLikeUpdate)
+    })
+
 }
 listbox.addEventListener("click", openDropdown);
+
+
+
 
 
 function closeDropdown(event) {
     const arrowUp = document.querySelector('.fa-angle-up')
     const arrowDown = document.querySelector('.fa-angle-down')
-    
-    if (event.target != selected && event.target != arrowDown && event.target != arrowUp) {
+
+    if (event.type === "click" && event.target != selected && event.target != arrowDown && event.target != arrowUp 
+    || event.type === "keydown" && event.key === "Escape") {
         selectTwo.style.display = 'none';
         selectThree.style.display = 'none';
         selected.style.borderRadius = '5px';
@@ -404,7 +433,17 @@ function closeDropdown(event) {
         document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabindex","0"));
         btnContactButton.setAttribute("tabindex","0");
 
-        // document.removeEventListener("click", closeDropdown);
+        document.querySelector(".contact_button").setAttribute("onclick", "displayModal()");
+        // document.querySelector(".contact_button").removeAttribute("onclick");
+
+    
+        document.querySelectorAll('.media-image').forEach(item => {
+            item.addEventListener('click', lightbox)
+        })
+        
+        document.querySelectorAll('.fa-heart').forEach(item => {
+            item.addEventListener('click', addLikeUpdate)
+        })
     }
 }
 
@@ -508,7 +547,7 @@ document.addEventListener("keydown", (event)=>{
 
     if(event.key === "Escape") {
         closeModal();
-        closeDropdown(event);
+        // closeDrop();
         closeLightbox();
     }
     
