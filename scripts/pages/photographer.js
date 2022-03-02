@@ -436,6 +436,8 @@ function closeDropdown(event) {
         document.querySelector(".contact_button").setAttribute("onclick", "displayModal()");
         // document.querySelector(".contact_button").removeAttribute("onclick");
 
+        document.removeEventListener("click", closeDropdown);
+        document.removeEventListener("keydown", closeDropdown);
     
         document.querySelectorAll('.media-image').forEach(item => {
             item.addEventListener('click', lightbox)
