@@ -7,7 +7,6 @@ function lightbox(event){
         content.setAttribute('role', 'dialog');
 
     currentSource = event.target.getAttribute('src')
-    // const currentMedia = mediasPhotographer.filter(media => currentSource.includes(media.image || media.video ));
     let currentMediaIndex = mediasPhotographer.findIndex(media => currentSource.includes(media.image || media.video ));
     let mediaToDisplay = mediasPhotographer[currentMediaIndex];
     if (mediaToDisplay.hasOwnProperty('video')) {
@@ -71,7 +70,6 @@ function lightbox(event){
     listbox.setAttribute("tabindex","-1");
     btnContactButton.setAttribute("tabindex","-1");
     logoLink.setAttribute("tabindex","-1");
-    // document.getElementById("selected").setAttribute("tabindex","-1");
     document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabindex", "-1"));
     document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabindex", "-1"));
 }
@@ -88,7 +86,6 @@ function closeLightbox() {
     selected.removeAttribute("tabindex");
     btnContactButton.setAttribute("tabindex","0");
     logoLink.setAttribute("tabindex","0");
-    // document.getElementById("selected").setAttribute("tabindex","-1");
     document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabindex", "0"));
     document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabindex", "0"));
 }
