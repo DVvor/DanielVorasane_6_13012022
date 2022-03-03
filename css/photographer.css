@@ -427,7 +427,7 @@ to {
     height: 100%;
     margin: auto;
     position: fixed;
-    top: 1000px;
+    top: 0px;
     right: 0px;
     bottom: 0px;
     left: 0px;

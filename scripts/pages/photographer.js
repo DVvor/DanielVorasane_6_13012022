@@ -526,7 +526,9 @@ document.addEventListener("keydown", (event)=>{
         }
 
 /**********************************************************************************************/
-
+        if(event.target.className === "fas fa-heart"){
+            addLikeUpdate(event);
+        }
 /***Accessibility dropdown*********************************************************************/
 
         if(event.target.className === "dropdown"){
