@@ -18,6 +18,12 @@ function displayModal() {
     document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabindex","-1"));
     document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabindex","-1"));
 
+    //remove eventListener when modal is opened
+    document.querySelectorAll(".fa-heart").forEach(elem => elem.removeEventListener("click",addLikeUpdate));
+    document.querySelectorAll(".media-image").forEach(elem => elem.removeEventListener("click",lightbox));
+    document.querySelector(".dropdown").removeEventListener("click",openDropdown);
+    document.getElementById("logo-link").setAttribute('href', '#');
+    
 }
 
 function closeModal() {
@@ -34,6 +40,13 @@ function closeModal() {
     document.getElementById("selected").setAttribute("tabindex","0");
     document.querySelectorAll(".media-image").forEach(elem => elem.setAttribute("tabindex","0"));
     document.querySelectorAll(".fa-heart").forEach(elem => elem.setAttribute("tabindex","0"));
+
+    // re-add eventListener when modal is closed
+    document.querySelectorAll(".fa-heart").forEach(elem => elem.addEventListener("click",addLikeUpdate));
+    document.querySelectorAll(".media-image").forEach(elem => elem.addEventListener("click",lightbox));
+    document.querySelector(".dropdown").addEventListener("click",openDropdown);
+    document.getElementById("logo-link").setAttribute('href', 'index.html');
+
 }
 
 //Message validation form

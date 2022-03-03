@@ -406,7 +406,10 @@ function openDropdown() {
     
     document.querySelectorAll('.fa-heart').forEach(item => {
         item.removeEventListener('click', addLikeUpdate)
-    })
+    });
+
+    document.getElementById("logo-link").setAttribute('href', '#');
+
 
 }
 listbox.addEventListener("click", openDropdown);
@@ -445,7 +448,10 @@ function closeDropdown(event) {
         
         document.querySelectorAll('.fa-heart').forEach(item => {
             item.addEventListener('click', addLikeUpdate)
-        })
+        });
+
+        document.getElementById("logo-link").setAttribute('href', 'index.html');
+
     }
 }
 
@@ -511,11 +517,11 @@ document.addEventListener("keydown", (event)=>{
 
         }
 
-        if(event.target.className === "fas fa-chevron-right"){
+        if(event.target.className === "fas fa-chevron-right") {
             nextmedia();
         }
-
-        if(event.target.className === "fas fa-chevron-left"){
+        
+        if((event.target.className === "fas fa-chevron-left") || (event.key === "37")) {
             previousmedia();
         }
 
@@ -552,5 +558,10 @@ document.addEventListener("keydown", (event)=>{
         // closeDrop();
         closeLightbox();
     }
-    
+    if(event.key === "ArrowRight") {
+        nextmedia();
+    }
+    if (event.key === "ArrowLeft") {
+        previousmedia();
+    }
 })
