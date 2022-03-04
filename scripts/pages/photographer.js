@@ -106,7 +106,7 @@ async function displayDataPhotographer() {
     dataPhotographer = await photographerfound();
     photographerName = dataPhotographer.name;
 
-    const photographerData = photographerFactory(dataPhotographer);
+    const photographerData = photographerFactory(dataPhotographer, "pagePhotographer");
     const userCardDOM = photographerData.getDataPhotographer();
 
     headerPagePhotographer.appendChild(userCardDOM.article);

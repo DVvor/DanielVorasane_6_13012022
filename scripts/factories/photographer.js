@@ -1,6 +1,14 @@
-function photographerFactory(data) {
+function photographerFactory(data, type) {
     const { name, id, portrait, city, country, tagline, price } = data;
     const picture = `assets/photographers/${portrait}`;
+
+    if (type === "thumbnailIndex") {
+        return {getUserCardDOM}
+    }
+
+    if (type === "pagePhotographer") {
+        return {getDataPhotographer }
+    }
 
     function getUserCardDOM() {
         const article = document.createElement( 'article' );
@@ -65,6 +73,4 @@ function photographerFactory(data) {
         return ({article, img});
     }
 
-    // return { name, picture, getUserCardDOM }
-    return { getUserCardDOM, getDataPhotographer }
 }
