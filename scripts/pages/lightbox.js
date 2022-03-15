@@ -1,4 +1,3 @@
-/* eslint-disable no-prototype-builtins */
 /* eslint-disable no-undef */
 /* create lightbox */
 
@@ -11,7 +10,10 @@ function lightbox (event) {
   currentSource = event.target.getAttribute('src')
   const currentMediaIndex = mediasPhotographer.findIndex(media => currentSource.includes(media.image || media.video))
   const mediaToDisplay = mediasPhotographer[currentMediaIndex]
-  if (mediaToDisplay.hasOwnProperty('video')) {
+  const hasVideoProperty = Object.prototype.hasOwnProperty.call(mediaToDisplay, 'video')
+  const hasImageProperty = Object.prototype.hasOwnProperty.call(mediaToDisplay, 'image')
+
+  if (hasVideoProperty === true) {
     const mediaLargeSize = document.createElement('video')
     mediaLargeSize.classList.add('media-large')
     mediaLargeSize.setAttribute('src', currentSource)
@@ -20,7 +22,7 @@ function lightbox (event) {
     mediaLargeSize.setAttribute('controls', 'controls')
     mediaLargeSize.setAttribute('title', mediaToDisplay.title)
     content.appendChild(mediaLargeSize)
-  } else if (mediaToDisplay.hasOwnProperty('image')) {
+  } else if (hasImageProperty === true) {
     const mediaLargeSize = document.createElement('img')
     mediaLargeSize.classList.add('media-large')
     mediaLargeSize.setAttribute('role', 'img')
@@ -110,8 +112,10 @@ function nextmedia () {
   content.removeChild(mediaLargeSize)
 
   const source = `assets/SamplePhotos/${photographerName}/${nextMediaToDisplay.image || nextMediaToDisplay.video}`
+  const hasVideoProperty = Object.prototype.hasOwnProperty.call(nextMediaToDisplay, 'video')
+  const hasImageProperty = Object.prototype.hasOwnProperty.call(nextMediaToDisplay, 'image')
 
-  if (nextMediaToDisplay.hasOwnProperty('video')) {
+  if (hasVideoProperty === true) {
     const mediaLargeSize = document.createElement('video')
     mediaLargeSize.classList.add('media-large')
     mediaLargeSize.setAttribute('aria-label', 'video close-up view')
@@ -119,7 +123,7 @@ function nextmedia () {
     mediaLargeSize.setAttribute('src', source)
     mediaLargeSize.setAttribute('controls', 'controls')
     content.appendChild(mediaLargeSize)
-  } else if (nextMediaToDisplay.hasOwnProperty('image')) {
+  } else if (hasImageProperty === true) {
     const mediaLargeSize = document.createElement('img')
     mediaLargeSize.classList.add('media-large')
     mediaLargeSize.setAttribute('role', 'img')
@@ -153,8 +157,10 @@ function previousmedia () {
   content.removeChild(mediaLargeSize)
 
   const source = `assets/SamplePhotos/${photographerName}/${previousMediaToDisplay.image || previousMediaToDisplay.video}`
+  const hasVideoProperty = Object.prototype.hasOwnProperty.call(previousMediaToDisplay, 'video')
+  const hasImageProperty = Object.prototype.hasOwnProperty.call(previousMediaToDisplay, 'image')
 
-  if (previousMediaToDisplay.hasOwnProperty('video')) {
+  if (hasVideoProperty === true) {
     const mediaLargeSize = document.createElement('video')
     mediaLargeSize.classList.add('media-large')
     mediaLargeSize.setAttribute('aria-label', 'video close-up view')
@@ -162,7 +168,7 @@ function previousmedia () {
     mediaLargeSize.setAttribute('src', source)
     mediaLargeSize.setAttribute('controls', 'controls')
     content.appendChild(mediaLargeSize)
-  } else if (previousMediaToDisplay.hasOwnProperty('image')) {
+  } else if (hasImageProperty === true) {
     const mediaLargeSize = document.createElement('img')
     mediaLargeSize.classList.add('media-large')
     mediaLargeSize.setAttribute('role', 'img')
