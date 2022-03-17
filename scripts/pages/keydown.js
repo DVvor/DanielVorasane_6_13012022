@@ -39,11 +39,13 @@ document.addEventListener('keydown', (event) => {
     closeModal()
     closeLightbox()
   }
+
   if (event.key === 'ArrowRight') {
     nextmedia()
   }
   if (event.key === 'ArrowLeft') {
     previousmedia()
   }
-})
+
 // eslint-disable-next-line eol-last
+})

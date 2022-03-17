@@ -1,3 +1,4 @@
+/* eslint-disable eol-last */
 /* eslint-disable no-undef */
 function openDropdown () {
   selected.style.borderRadius = '5px 5px 0px 0px'

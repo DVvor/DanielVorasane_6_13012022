@@ -153,4 +153,5 @@ function init () {
   displayDataPhotographer()
   mediadisplay()
 }
+// eslint-disable-next-line eol-last
 init()

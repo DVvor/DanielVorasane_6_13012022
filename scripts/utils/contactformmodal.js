@@ -193,4 +193,5 @@ function validate (event) {
     document.querySelectorAll('.fa-heart').forEach(elem => elem.setAttribute('tabindex', '-1'))
     btnContactButton.setAttribute('tabindex', '-1')
   }
+// eslint-disable-next-line eol-last
 }

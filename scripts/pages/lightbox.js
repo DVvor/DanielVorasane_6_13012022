@@ -181,4 +181,5 @@ function previousmedia () {
   nextMediaTitle.classList.add('title')
   nextMediaTitle.textContent = previousMediaToDisplay.title
   content.appendChild(nextMediaTitle)
+// eslint-disable-next-line eol-last
 }
