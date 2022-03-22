@@ -98,7 +98,7 @@ function sortmedia () {
 
   main.appendChild(mediaSection)
 
-  document.querySelectorAll('.card-media').forEach(item => {
+  document.querySelectorAll('.media-image').forEach(item => {
     item.addEventListener('click', lightbox)
   })
 }
